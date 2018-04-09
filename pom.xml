@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>br.com.hlandim.springusuariocrud</groupId>
-	<artifactId>springusuariocrud</artifactId>
+	<artifactId>alquiler_autos_rara</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>springusuariocrud</name>
+	<name>alquiler_autos_rara</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
