@@ -17,6 +17,7 @@
 		<spring.security.version>4.0.1.RELEASE</spring.security.version>
 		<cglib.version>2.2.2</cglib.version>
 		<h2.version>1.4.187</h2.version>
+		<jackson.version>2.6.4</jackson.version>
 	</properties>
 
 	<dependencies>
@@ -80,6 +81,12 @@
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
 			<version>2.3.8</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 		
 		<dependency>
