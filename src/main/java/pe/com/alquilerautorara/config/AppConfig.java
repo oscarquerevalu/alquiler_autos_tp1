@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.config;
+package pe.com.alquilerautorara.config;
 
 import java.util.Locale;
 import java.util.Properties;
@@ -13,6 +13,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
@@ -38,7 +39,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-import br.com.hlandim.springusuariocrud.config.security.SecurityConfig;
+import pe.com.alquilerautorara.config.security.SecurityConfig;
 
 /**
  * Classe que representa a configuração de contexto web mvc, DataBase e demais
@@ -48,9 +49,9 @@ import br.com.hlandim.springusuariocrud.config.security.SecurityConfig;
  *
  */
 @Configuration
-@ComponentScan(basePackages = "br.com.hlandim.springusuariocrud")
+@ComponentScan(basePackages = "pe.com.alquilerautorara")
 @EnableWebMvc
-@EnableJpaRepositories(basePackages = "br.com.hlandim.springusuariocrud")
+@EnableJpaRepositories(basePackages = "pe.com.alquilerautorara")
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 @Import({ SecurityConfig.class })
@@ -112,7 +113,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 
 		LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
 		factory.setJpaVendorAdapter(vendorAdapter);
-		factory.setPackagesToScan("br.com.hlandim.springusuariocrud.model");
+		factory.setPackagesToScan("pe.com.alquilerautorara.model");
 
 		Properties jpaProterties = new Properties();
 		jpaProterties.put(PROPERTY_NAME_HIBERNATE_DIALECT,
@@ -174,9 +175,9 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	 * @return {@link ResourceBundleMessageSource}
 	 */
 	@Bean
-	public ResourceBundleMessageSource messageSource() {
-		ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-		source.setBasename("messages");
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+		source.setBasename("classpath:message/messages");
 		source.setUseCodeAsDefaultMessage(true);
 		source.setDefaultEncoding("UTF-8");
 		return source;

@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.model;
+package pe.com.alquilerautorara.model;
 
 import java.time.LocalDate;
 

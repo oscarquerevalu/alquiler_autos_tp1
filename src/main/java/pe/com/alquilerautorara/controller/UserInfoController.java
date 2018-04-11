@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.controller;
+package pe.com.alquilerautorara.controller;
 
 import java.security.Principal;
 import java.util.Locale;
@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import br.com.hlandim.springusuariocrud.model.UserInfo;
-import br.com.hlandim.springusuariocrud.service.IUserInfoService;
+import pe.com.alquilerautorara.model.UserInfo;
+import pe.com.alquilerautorara.service.IUserInfoService;
 
 /**
  * Controler responsável peleas urls de usuarios.

@@ -17,11 +17,16 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link href="<c:url value="/resources/css/geral.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/jimgMenu.css"/>" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery.js" />"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery-ui.min.js" />"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery-easing-1.3.pack.js" />"></script>
-<script type="text/javascript" src="<spring:url value="/resources/js/jquery-easing-compatibility.1.2.pack.js" />"></script>
+<link href="<c:url value="/resources/css/jimgMenu.css"/>"
+	rel="stylesheet" type="text/css" />
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/jquery.js" />"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/jquery-ui.min.js" />"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/jquery-easing-1.3.pack.js" />"></script>
+<script type="text/javascript"
+	src="<spring:url value="/resources/js/jquery-easing-compatibility.1.2.pack.js" />"></script>
 </head>
 <body>
 
@@ -66,15 +71,46 @@
 			</c:if>
 
 			<h1>Menu auto</h1>
-			<div class="jimgMenu user-info">
-				<ul>
-					<li class="auto1"><a href="#nogo">Landscapes</a></li>
-					<li class="auto2"><a href="#nogo">People</a></li>
-					<li class="auto3"><a href="#nogo">Nature</a></li>
-					<li class="auto4"><a href="#nogo">Abstract</a></li>
-					<li class="auto5"><a href="#nogo">Urban</a></li>
-				</ul>
+			<div class="row">
+				<div class="col-sm-8">
+					<div class="jimgMenu">
+						<ul>
+							<li class="auto1" onclick="autoFindbyId(1);"><a href="#nogo">Landscapes</a></li>
+							<li class="auto2" onclick="autoFindbyId(2);"><a href="#nogo">People</a></li>
+							<li class="auto3" onclick="autoFindbyId(3);"><a href="#nogo">Nature</a></li>
+							<li class="auto4" onclick="autoFindbyId(4);"><a href="#nogo">Abstract</a></li>
+							<li class="auto5" onclick="autoFindbyId(5);"><a href="#nogo">Urban</a></li>
+						</ul>
+
+					</div>
+				</div>
+
+				<div class="col-sm-3"">
+					<div id="auto-info" style="display: none;" class="auto-info"></div>
+					<div class="form-actions" style="display: none;">
+					<c:url var="post_url" value="/reserva/inicia" />
+					<form:form id="form-create" action="${post_url}" modelAttribute="auto" method="post" class="form-signin">
+					</form:form>
+<%-- 						<form:hidden path="id" id="autoId"   /> --%>
+						<sec:authorize access="isAnonymous()" var="usuarioDeslogado" />
+						<c:choose>
+							<c:when test="${usuarioDeslogado}">
+								<c:url var="login_url" value="/login" />
+								<a href="${login_url}" class="btn btn-lg btn-primary btn-block"><spring:message
+										code="home.auto.login" /></a>
+							</c:when>
+							<c:otherwise>
+								<button type="submit" id="btn-reservar"
+									class="btn btn-lg btn-primary btn-block">
+									<spring:message code="home.auto.reservar" />
+								</button>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
 			</div>
+
+
 		</div>
 	</div>
 
@@ -121,6 +157,64 @@
 				}
 			});
 		});
+
+		function autoFindbyId(id) {
+			if (id) {
+				/* $("#loading-image").css('display', 'inline'); */
+				var url = "<spring:url value="/auto/findbyId" />";
+				$
+						.ajax({
+							url : url,
+							headers: {
+					            "Accept": "application/json"
+					        },
+							data : {
+								id : id
+							},
+							type : "GET",
+							dataType: "JSON",
+							success : function(data) {
+								/* 	$("#loading-image").css('display', 'none'); */
+								if (data === 'true') {
+									// 	      	 				$(":submit").attr("disabled", true);
+
+									alert("NOT FOUND");
+
+								} else {
+									// 		      	 		    $(":submit").removeAttr("disabled");
+									// 	      	 				$("#user-alert").hide().html("");
+									// 	      	 				alert(data);
+// 									$("#autoId") = data.id;
+									$("#auto-info")
+											.show()
+											.html(
+													"<h1> <spring:message code='home.auto.categoria'/><small> "
+															+ data.categoria
+															+ " </small>"
+															+ "<h1> <spring:message code='home.auto.nombre'/><small> "
+															+ data.nombre
+															+ " </small>"
+															+ "<h1> <spring:message code='home.auto.pasajeros'/><small> "
+															+ data.pasajeros
+															+ " </small>"
+															+ "<h1> <spring:message code='home.auto.precio'/><small> "
+															+ data.precio
+															+ " </small>"
+															+ "<h1> <spring:message code='home.auto.tipo'/><small> "
+															+ data.tipo
+															+ " </small>"
+															+ "<h1> <spring:message code='home.auto.transmision'/><small> "
+															+ data.transmision
+															+ " </small>");
+								}
+								//alert("Data: " + data );
+							},
+						       error:function( jqXHR,  textStatus,  errorThrown ){
+						            alert('error '+errorThrown);
+						                    }
+						});
+			}
+		}
 	</script>
 
 </body>

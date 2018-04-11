@@ -74,6 +74,11 @@ body {
 .user-info{
 	text-align: center;
 }
+
+.auto-info{
+	text-align: center;
+}
+
 .table>tbody>tr>td{
     vertical-align: baseline;
     text-align: center;

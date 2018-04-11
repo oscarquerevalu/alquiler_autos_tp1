@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.config.security;
+package pe.com.alquilerautorara.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import br.com.hlandim.springusuariocrud.service.AuthenticationService;
+import pe.com.alquilerautorara.service.AuthenticationService;
 
 /**
  * Classe que representa a configuração do Spring Security

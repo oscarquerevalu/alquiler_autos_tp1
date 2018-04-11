@@ -1,9 +1,9 @@
-package br.com.hlandim.springusuariocrud.dao;
+package pe.com.alquilerautorara.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.hlandim.springusuariocrud.model.UserInfo;
+import pe.com.alquilerautorara.model.UserInfo;
 
 /**
  * Interface de abstrcao do crud.

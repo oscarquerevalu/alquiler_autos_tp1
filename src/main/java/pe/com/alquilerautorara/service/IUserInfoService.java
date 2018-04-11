@@ -1,8 +1,8 @@
-package br.com.hlandim.springusuariocrud.service;
+package pe.com.alquilerautorara.service;
 
 import java.util.List;
 
-import br.com.hlandim.springusuariocrud.model.UserInfo;
+import pe.com.alquilerautorara.model.UserInfo;
 
 public interface IUserInfoService {
 	

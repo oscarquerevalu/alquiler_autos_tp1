@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.controller;
+package pe.com.alquilerautorara.controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.hlandim.springusuariocrud.service.IUserInfoService;
+import pe.com.alquilerautorara.service.IUserInfoService;
 
 /**
  * Controller respánsavel pelas chamadas a url principal.

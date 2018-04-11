@@ -1,8 +1,8 @@
-package br.com.hlandim.springusuariocrud.config.security;
+package pe.com.alquilerautorara.config.security;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import br.com.hlandim.springusuariocrud.config.AppConfig;
+import pe.com.alquilerautorara.config.AppConfig;
 
 /**
  * Classe usada pelo Spring Security para configuração.

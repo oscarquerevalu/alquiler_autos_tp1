@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.config.security;
+package pe.com.alquilerautorara.config.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

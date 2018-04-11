@@ -1,4 +1,4 @@
-package br.com.hlandim.springusuariocrud.service;
+package pe.com.alquilerautorara.service;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import br.com.hlandim.springusuariocrud.dao.UserInfoDao;
-import br.com.hlandim.springusuariocrud.model.UserInfo;
+import pe.com.alquilerautorara.dao.UserInfoDao;
+import pe.com.alquilerautorara.model.UserInfo;
 
 @Service
 public class AuthenticationService implements UserDetailsService {
