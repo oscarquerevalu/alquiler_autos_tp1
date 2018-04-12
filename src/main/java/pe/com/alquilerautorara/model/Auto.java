@@ -1,10 +1,15 @@
 package pe.com.alquilerautorara.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -50,6 +55,9 @@ public class Auto {
 	@Column
 	@NotEmpty
 	private Integer capacidad;
+	
+//	@OneToMany(mappedBy="auto")
+//    private List<Reserva> reservas;
 
 
 	public Auto() {
@@ -147,6 +155,16 @@ public class Auto {
 	public void setCapacidad(Integer capacidad) {
 		this.capacidad = capacidad;
 	}
+	
+
+//	public List<Reserva> getReservas() {
+//		return reservas;
+//	}
+//
+//
+//	public void setReservas(List<Reserva> reservas) {
+//		this.reservas = reservas;
+//	}
 
 
 	@Override

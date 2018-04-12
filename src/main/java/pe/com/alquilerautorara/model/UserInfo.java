@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -45,6 +46,22 @@ public class UserInfo {
 	@Column
 	@NotNull
 	private LocalDate birthdate;
+	
+	@Column
+	@NotEmpty
+	@Email
+	private String email;
+	
+	@Column
+	@NotEmpty
+	private String telefono;
+	
+	@Column
+	@NotEmpty
+	private String documento;
+	
+	@Column
+	private String direccion;
 
 	@Column
 	@NotNull
@@ -54,17 +71,32 @@ public class UserInfo {
 	public UserInfo() {
 	}
 
-	public UserInfo(String username, String password, Role role, String name, LocalDate birthdate) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.role = role;
-		this.name = name;
-		this.birthdate = birthdate;
-	}
-
+//	public UserInfo(String username, String password, Role role, String name, LocalDate birthdate) {
+//		super();
+//		this.username = username;
+//		this.password = password;
+//		this.role = role;
+//		this.name = name;
+//		this.birthdate = birthdate;
+//	}
+	
 	public LocalDate getBirthdate() {
 		return birthdate;
+	}
+
+	public UserInfo(Long id, String username, String name, String password, LocalDate birthdate, String email,
+			String telefono, String documento, String direccion, Role role) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.name = name;
+		this.password = password;
+		this.birthdate = birthdate;
+		this.email = email;
+		this.telefono = telefono;
+		this.documento = documento;
+		this.direccion = direccion;
+		this.role = role;
 	}
 
 	public void setBirthdate(LocalDate birthdate) {
@@ -116,4 +148,36 @@ public class UserInfo {
 
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public void setDocumento(String documento) {
+		this.documento = documento;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+	
 }

@@ -30,20 +30,36 @@
 				<form:errors path="name" element="div" class="alert alert-warning" />
 				<spring:message code="create.input.name" var="nameLabel"/>
 				<form:input path="name" class="form-control" placeholder="${nameLabel}" required="true" autofocus="true"/>
-
-				<form:errors path="birthdate" element="div" class="alert alert-warning" />
-				<spring:message code="create.input.birthdate" var="birthdateLabel"/>
-				<form:input path="birthdate" readonly="readonly" id="birthdate-input" class="form-control" placeholder="${birthdateLabel}" required="true"/>
-
+				
 				<form:errors path="username" element="div" class="alert alert-teste alert-warning "/>
 				<!-- <div id="loading-image" style="display: none; float: right;">
 					<img src="http://media.giphy.com/media/TtZqlvHid7BjW/giphy.gif" />
 				</div> -->
+				
+				<form:errors path="documento" element="div" class="alert alert-warning" />
+				<spring:message code="create.input.documento" var="documentoLabel"/>
+				<form:input path="documento" class="form-control" placeholder="${documentoLabel}" required="true"/>
 
 				<div id="user-alert" style="display: none;" class="alert alert-warning">
 				</div>
 				<spring:message code="create.input.username" var="usernameLabel"/>
 				<form:input path="username"  class="form-control" placeholder="${usernameLabel}" required="true" onblur="checkUsernameExist(this.value)"/>
+
+				<form:errors path="birthdate" element="div" class="alert alert-warning" />
+				<spring:message code="create.input.birthdate" var="birthdateLabel"/>
+				<form:input path="birthdate" readonly="readonly" id="birthdate-input" class="form-control" placeholder="${birthdateLabel}" required="true"/>
+				
+				<form:errors path="telefono" element="div" class="alert alert-warning" />
+				<spring:message code="create.input.telefono" var="telefonoLabel"/>
+				<form:input path="telefono" class="form-control" placeholder="${telefonoLabel}" required="true"/>
+				
+				<form:errors path="email" element="div" class="alert alert-warning" />
+				<spring:message code="create.input.email" var="emailLabel"/>
+				<form:input path="email" class="form-control" placeholder="${emailLabel}" required="true"/>
+				
+				<form:errors path="direccion" element="div" class="alert alert-warning" />
+				<spring:message code="create.input.direccion" var="direccionLabel"/>
+				<form:input path="direccion" class="form-control" placeholder="${direccionLabel}" />
 
 				<form:errors path="password" element="div" class="alert alert-warning"/>
 				<spring:message code="create.input.password" var="passwordLabel"/>
