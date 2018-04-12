@@ -20,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pe.com.alquilerautorara.model.Auto;
+import pe.com.alquilerautorara.model.Reserva;
 import pe.com.alquilerautorara.model.UserInfo;
 import pe.com.alquilerautorara.service.AutoService;
 import pe.com.alquilerautorara.service.IAutoService;
+import pe.com.alquilerautorara.service.IUserInfoService;
 
 /**
  * Controler responsável peleas urls de usuarios.
@@ -35,6 +37,9 @@ public class ReservaController {
 
 	@Autowired
 	private IAutoService autoService;
+	
+	@Autowired
+	private IUserInfoService userInfoService;
 
 	@Autowired
 	private MessageSource messageSource;
@@ -130,12 +135,19 @@ public class ReservaController {
 	 * @param username
 	 * @return <code>true</code> se existir ou <code>false</code> caso nao exista.
 	 */
-	@RequestMapping(value = "/findbyId", method = RequestMethod.GET)
-	public @ResponseBody Auto findbyId(@RequestParam Integer id) {
+	@RequestMapping(value = "/iniciaReserva", method = RequestMethod.GET)
+	public String findbyId(@RequestParam Integer id, Model model) {
 		
 		Auto auto = autoService.findById(id);
-		if(auto == null) auto = new Auto();
-		return auto;
+		UserInfo userInfo = userInfoService.getAuthentication();
+		
+		Reserva reserva = new Reserva();
+		
+		reserva.setAuto(auto);
+		reserva.setUserInfo(userInfo);;
+				
+		model.addAttribute("reserva", reserva);
+		return "redirect:reserva/create";
 	}
 
 }

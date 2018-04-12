@@ -49,13 +49,12 @@
 					<li><a href="#">Ofertas</a></li>
 					<li><a href="#">Cliente</a></li>
 				</ul>
-				<form class="navbar-form navbar-left" action="/action_page.php">
-					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Search"
-							name="search">
-					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
-				</form>
+				<div class="div-actions">
+					<c:url var="logout_url" value="/logout?logout" />
+					<a href="${logout_url}" class="btn btn-default btn-lg btn-logout">
+						<span class="glyphicon glyphicon-log-out"></span> Logout
+					</a>
+				</div>
 			</div>
 		</nav>
 
@@ -88,10 +87,11 @@
 				<div class="col-sm-3"">
 					<div id="auto-info" style="display: none;" class="auto-info"></div>
 					<div class="form-actions" style="display: none;">
-					<c:url var="post_url" value="/reserva/inicia" />
-					<form:form id="form-create" action="${post_url}" modelAttribute="auto" method="post" class="form-signin">
-					</form:form>
-<%-- 						<form:hidden path="id" id="autoId"   /> --%>
+						<c:url var="post_url" value="/reserva/inicia" />
+						<form:form id="form-create" action="${post_url}"
+							modelAttribute="auto" method="post" class="form-signin">
+						</form:form>
+						<%-- 						<form:hidden path="id" id="autoId"   /> --%>
 						<sec:authorize access="isAnonymous()" var="usuarioDeslogado" />
 						<c:choose>
 							<c:when test="${usuarioDeslogado}">
@@ -165,14 +165,14 @@
 				$
 						.ajax({
 							url : url,
-							headers: {
-					            "Accept": "application/json"
-					        },
+							headers : {
+								"Accept" : "application/json"
+							},
 							data : {
 								id : id
 							},
 							type : "GET",
-							dataType: "JSON",
+							dataType : "JSON",
 							success : function(data) {
 								/* 	$("#loading-image").css('display', 'none'); */
 								if (data === 'true') {
@@ -184,7 +184,7 @@
 									// 		      	 		    $(":submit").removeAttr("disabled");
 									// 	      	 				$("#user-alert").hide().html("");
 									// 	      	 				alert(data);
-// 									$("#autoId") = data.id;
+									// 									$("#autoId") = data.id;
 									$("#auto-info")
 											.show()
 											.html(
@@ -205,13 +205,15 @@
 															+ " </small>"
 															+ "<h1> <spring:message code='home.auto.transmision'/><small> "
 															+ data.transmision
-															+ " </small>");
+															+ " </small>" +
+															"<a href'/' class='btn btn-lg btn-primary btn-block'><spring:message code='login.title'/></a>"
+															);
 								}
 								//alert("Data: " + data );
 							},
-						       error:function( jqXHR,  textStatus,  errorThrown ){
-						            alert('error '+errorThrown);
-						                    }
+							error : function(jqXHR, textStatus, errorThrown) {
+								alert('error ' + errorThrown);
+							}
 						});
 			}
 		}

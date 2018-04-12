@@ -114,7 +114,8 @@ public class AutoController {
 		
 		Auto auto = autoService.findById(id);
 		System.out.println(auto.toString());
-		if(auto == null) auto = new Auto();
+		auto.setReservas(null);
+//		if(auto == null) auto = new Auto();
 		return auto;
 	}
 

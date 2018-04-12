@@ -1,6 +1,7 @@
 package pe.com.alquilerautorara.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -67,25 +69,19 @@ public class UserInfo {
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	private Role role;
+	
+	@OneToMany(mappedBy="userInfo")
+    private List<Reserva> reservas;
 
 	public UserInfo() {
 	}
 
-//	public UserInfo(String username, String password, Role role, String name, LocalDate birthdate) {
-//		super();
-//		this.username = username;
-//		this.password = password;
-//		this.role = role;
-//		this.name = name;
-//		this.birthdate = birthdate;
-//	}
-	
 	public LocalDate getBirthdate() {
 		return birthdate;
 	}
 
 	public UserInfo(Long id, String username, String name, String password, LocalDate birthdate, String email,
-			String telefono, String documento, String direccion, Role role) {
+			String telefono, String documento, String direccion, Role role, List<Reserva> reservas) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -97,6 +93,7 @@ public class UserInfo {
 		this.documento = documento;
 		this.direccion = direccion;
 		this.role = role;
+		this.reservas = reservas;
 	}
 
 	public void setBirthdate(LocalDate birthdate) {
@@ -178,6 +175,14 @@ public class UserInfo {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
 	}
 	
 }

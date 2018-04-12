@@ -56,8 +56,8 @@ public class Auto {
 	@NotEmpty
 	private Integer capacidad;
 	
-//	@OneToMany(mappedBy="auto")
-//    private List<Reserva> reservas;
+	@OneToMany(mappedBy="auto")
+    private List<Reserva> reservas;
 
 
 	public Auto() {
@@ -65,7 +65,7 @@ public class Auto {
 	
 
 	public Auto(Long id, String nombre, String tipo, String transmision, String categoria, String pasajeros,
-			Double precio, Integer capacidad) {
+			Double precio, Integer capacidad, List<Reserva> reservas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -75,7 +75,11 @@ public class Auto {
 		this.pasajeros = pasajeros;
 		this.precio = precio;
 		this.capacidad = capacidad;
+		this.reservas = reservas;
 	}
+
+
+
 
 	public Long getId() {
 		return id;
@@ -157,14 +161,14 @@ public class Auto {
 	}
 	
 
-//	public List<Reserva> getReservas() {
-//		return reservas;
-//	}
-//
-//
-//	public void setReservas(List<Reserva> reservas) {
-//		this.reservas = reservas;
-//	}
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
 
 
 	@Override
