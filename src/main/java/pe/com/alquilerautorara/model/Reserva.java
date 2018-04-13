@@ -1,5 +1,6 @@
 package pe.com.alquilerautorara.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,7 +24,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 @Entity
-public class Reserva {
+public class Reserva implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,21 +44,25 @@ public class Reserva {
 	private LocalDate fechaReserva;
 	
 	@Column
-	@NotEmpty
 	private Double precio;
 	
+	@Column
+	@NotEmpty
+	private String estado;
 
 	public Reserva() {
 	}
 
-	public Reserva(Long id, Auto auto, UserInfo userInfo, LocalDate fechaReserva, Double precio) {
+	public Reserva(Long id, Auto auto, UserInfo userInfo, LocalDate fechaReserva, Double precio, String estado) {
 		super();
 		this.id = id;
 		this.auto = auto;
 		this.userInfo = userInfo;
 		this.fechaReserva = fechaReserva;
 		this.precio = precio;
+		this.estado = estado;
 	}
+
 
 	public Long getId() {
 		return id;
@@ -111,9 +116,13 @@ public class Reserva {
 		return "Reserva [id=" + id + ", auto=" + auto + ", userInfo=" + userInfo + ", fechaReserva=" + fechaReserva
 				+ ", precio=" + precio + "]";
 	}
-	
-	
-	
-	
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
 }

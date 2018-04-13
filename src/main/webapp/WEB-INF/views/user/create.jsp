@@ -12,7 +12,7 @@
         <title><spring:message code="create.title"/></title>
       	<link href="<spring:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
       	<link href="<spring:url value="/resources/css/geral.css" />" rel="stylesheet">
-      	<link href="<spring:url value="/resources/css/jquery-ui.min.css" />" rel="stylesheet">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>      	
     </head>
     <body>
     	<div class="container">

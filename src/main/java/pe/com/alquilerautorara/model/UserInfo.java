@@ -1,5 +1,6 @@
 package pe.com.alquilerautorara.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,7 +26,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  */
 @Entity
-public class UserInfo {
+public class UserInfo implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

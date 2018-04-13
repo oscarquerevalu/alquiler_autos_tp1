@@ -1,15 +1,20 @@
 package pe.com.alquilerautorara.model;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  */
 @Entity
-public class Auto {
+public class Auto implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -51,21 +56,28 @@ public class Auto {
 	@Column
 	@NotEmpty
 	private Double precio;
+	
+	@Column
+	@NotEmpty
+	private Integer cantidad;
 
 	@Column
 	@NotEmpty
 	private Integer capacidad;
 	
-	@OneToMany(mappedBy="auto")
-    private List<Reserva> reservas;
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="auto", cascade = CascadeType.ALL)
+    private Set<Reserva> reservas;
+	
+	@Transient
+	private boolean disponible;
 
 
 	public Auto() {
 	}
 	
-
+	
 	public Auto(Long id, String nombre, String tipo, String transmision, String categoria, String pasajeros,
-			Double precio, Integer capacidad, List<Reserva> reservas) {
+			Double precio, Integer cantidad, Integer capacidad, Set<Reserva> reservas) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -74,10 +86,10 @@ public class Auto {
 		this.categoria = categoria;
 		this.pasajeros = pasajeros;
 		this.precio = precio;
+		this.cantidad = cantidad;
 		this.capacidad = capacidad;
 		this.reservas = reservas;
 	}
-
 
 
 
@@ -161,12 +173,12 @@ public class Auto {
 	}
 	
 
-	public List<Reserva> getReservas() {
+	public Set<Reserva> getReservas() {
 		return reservas;
 	}
 
 
-	public void setReservas(List<Reserva> reservas) {
+	public void setReservas(Set<Reserva> reservas) {
 		this.reservas = reservas;
 	}
 
@@ -177,5 +189,27 @@ public class Auto {
 				+ ", categoria=" + categoria + ", pasajeros=" + pasajeros + ", precio=" + precio + ", capacidad="
 				+ capacidad + "]";
 	}
+
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+
+	public boolean isDisponible() {
+		return disponible;
+	}
+
+
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
+	}
+	
+	
 	
 }

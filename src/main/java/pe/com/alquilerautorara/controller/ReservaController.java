@@ -24,6 +24,7 @@ import pe.com.alquilerautorara.model.Reserva;
 import pe.com.alquilerautorara.model.UserInfo;
 import pe.com.alquilerautorara.service.AutoService;
 import pe.com.alquilerautorara.service.IAutoService;
+import pe.com.alquilerautorara.service.IReservaService;
 import pe.com.alquilerautorara.service.IUserInfoService;
 
 /**
@@ -40,6 +41,9 @@ public class ReservaController {
 	
 	@Autowired
 	private IUserInfoService userInfoService;
+	
+	@Autowired
+	private IReservaService reservaService;
 
 	@Autowired
 	private MessageSource messageSource;
@@ -84,13 +88,18 @@ public class ReservaController {
 	 * @return pagina de cradastro
 	 */
 	@RequestMapping(value = "/create/save", method = RequestMethod.POST)
-	public String save(@Valid Auto auto, BindingResult result, Model model) {
+	public String save(@Valid Reserva reserva, BindingResult result, Model model) {
 		if (result.hasErrors()) {
-			return "auto/create";
+			return "reserva/reservar";
 		}
-		autoService.save(auto);
-		model.addAttribute("message", messageSource.getMessage("message.auto.save", null, Locale.getDefault()));
-		return "redirect:/auto/create";
+		Auto auto = autoService.findById(reserva.getAuto().getId());
+		UserInfo userInfo = userInfoService.getAuthentication();
+		reserva.setAuto(auto);
+		reserva.setUserInfo(userInfo);
+		
+		reservaService.save(reserva);
+		model.addAttribute("message", messageSource.getMessage("message.reserva.save", null, Locale.getDefault()));
+		return "redirect:/";
 
 	}
 
@@ -130,24 +139,25 @@ public class ReservaController {
 	
 	
 	/**
-	 * Utilizado para verificar se um usuario já esta cadastrdo.
+	 * Acceso a pagina de edicion.
 	 * 
-	 * @param username
-	 * @return <code>true</code> se existir ou <code>false</code> caso nao exista.
+	 * @param id
+	 * @param model
+	 * @return pagina de edicao.
 	 */
-	@RequestMapping(value = "/iniciaReserva", method = RequestMethod.GET)
-	public String findbyId(@RequestParam Integer id, Model model) {
-		
+	@RequestMapping(value = "/iniciaReserva/{id}", method = RequestMethod.GET)
+	public String findbyId(@PathVariable("id") int id, Model model) {
 		Auto auto = autoService.findById(id);
 		UserInfo userInfo = userInfoService.getAuthentication();
 		
 		Reserva reserva = new Reserva();
 		
 		reserva.setAuto(auto);
-		reserva.setUserInfo(userInfo);;
-				
+		reserva.setUserInfo(userInfo);
+		reserva.setPrecio(reserva.getAuto().getPrecio());
+		reserva.setEstado("RESERVADO");
 		model.addAttribute("reserva", reserva);
-		return "redirect:reserva/create";
+		return "reserva/reservar";
 	}
 
 }

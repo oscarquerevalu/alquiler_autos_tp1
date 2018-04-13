@@ -185,29 +185,39 @@
 									// 	      	 				$("#user-alert").hide().html("");
 									// 	      	 				alert(data);
 									// 									$("#autoId") = data.id;
+									
+									var textDisponible;
+									
+									if (data.disponible) {
+										textDisponible =  "<c:url var='edit_url' value='/reserva/iniciaReserva/"+ data.id + "' />"
+										+ "<a href='${edit_url}' class='btn btn-lg btn-primary'><spring:message code='home.reserva.reservar'/></a>";
+									}
+									else {
+										textDisponible ="<h1> <spring:message code='home.reserva.nodisponible'/></h1>";
+									}
+									
 									$("#auto-info")
 											.show()
 											.html(
 													"<h1> <spring:message code='home.auto.categoria'/><small> "
 															+ data.categoria
-															+ " </small>"
+															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.nombre'/><small> "
 															+ data.nombre
-															+ " </small>"
+															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.pasajeros'/><small> "
 															+ data.pasajeros
-															+ " </small>"
+															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.precio'/><small> "
 															+ data.precio
-															+ " </small>"
+															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.tipo'/><small> "
 															+ data.tipo
-															+ " </small>"
+															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.transmision'/><small> "
 															+ data.transmision
-															+ " </small>" +
-															"<a href'/' class='btn btn-lg btn-primary btn-block'><spring:message code='login.title'/></a>"
-															);
+															+ " </small></h1>"
+															+ textDisponible);
 								}
 								//alert("Data: " + data );
 							},
@@ -217,6 +227,29 @@
 						});
 			}
 		}
+		
+		function iniciaReserva(id){
+  	 		if(id){
+  	 			/* $("#loading-image").css('display', 'inline'); */
+  	 			var url = "<spring:url value="/reserva/iniciaReserva" />";
+      	 		 $.ajax({
+      	 			url:url,
+      	 			data: {id:id},
+    				type : "GET",
+      	 			success: function(data){
+	      	 		/* 	$("#loading-image").css('display', 'none'); */
+	      	 			if(data === 'true'){ 
+	      	 				$(":submit").attr("disabled", true);
+	      	 				$("#user-alert").show().html("<spring:message code='create.message.usuarioExistente.parte1'/><strong> " + username + " </strong><spring:message code='create.message.usuarioExistente.parte2'/>"  );
+	      	 			} else {
+		      	 		    $(":submit").removeAttr("disabled");
+	      	 				$("#user-alert").hide().html("");
+	      	 			}
+      	 	        	//alert("Data: " + data );
+      	 			} 
+      	 	    });
+  	 		}
+  	 	}
 	</script>
 
 </body>
