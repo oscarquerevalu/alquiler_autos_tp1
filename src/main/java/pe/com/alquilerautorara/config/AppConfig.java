@@ -18,6 +18,8 @@ import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -225,6 +227,44 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		return characterEncodingFilter;
+	}
+	
+//	@Bean
+//	public JavaMailSender getMailSender(){
+//		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+//		//Using Gmail SMTP configuration.
+//		mailSender.setHost("smtp.gmail.com");
+//		mailSender.setPort(587);
+//		mailSender.setUsername("alquilerautosrara@gmail.com");
+//		mailSender.setPassword("alquilerautosrara123");
+//		
+//		Properties javaMailProperties = new Properties();
+//		javaMailProperties.put("mail.smtp.starttls.enable", "true");
+//		javaMailProperties.put("mail.smtp.auth", "true");
+//		javaMailProperties.put("mail.transport.protocol", "smtp");
+//		javaMailProperties.put("mail.debug", "true");
+//		
+//		
+//		mailSender.setJavaMailProperties(javaMailProperties);
+//		return mailSender;
+//	}
+	
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+	    JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+	    mailSender.setHost("smtp.gmail.com");
+	    mailSender.setPort(587);
+	     
+	    mailSender.setUsername("alquilerautosrara@gmail.com");
+	    mailSender.setPassword("alquilerautosrara123");
+	     
+	    Properties props = mailSender.getJavaMailProperties();
+	    props.put("mail.transport.protocol", "smtp");
+	    props.put("mail.smtp.auth", "true");
+	    props.put("mail.smtp.starttls.enable", "true");
+	    props.put("mail.debug", "true");
+	     
+	    return mailSender;
 	}
 
 }

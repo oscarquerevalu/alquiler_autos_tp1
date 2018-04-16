@@ -26,6 +26,7 @@ import pe.com.alquilerautorara.service.AutoService;
 import pe.com.alquilerautorara.service.IAutoService;
 import pe.com.alquilerautorara.service.IReservaService;
 import pe.com.alquilerautorara.service.IUserInfoService;
+import pe.com.alquilerautorara.service.MailService;
 
 /**
  * Controler responsável peleas urls de usuarios.
@@ -47,6 +48,9 @@ public class ReservaController {
 
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	MailService mailService;
 
 	/**
 	 * Acesso a página principal.
@@ -98,6 +102,7 @@ public class ReservaController {
 		reserva.setUserInfo(userInfo);
 		
 		reservaService.save(reserva);
+		mailService.sendEmail(reserva);
 		model.addAttribute("message", messageSource.getMessage("message.reserva.save", null, Locale.getDefault()));
 		return "redirect:/";
 
