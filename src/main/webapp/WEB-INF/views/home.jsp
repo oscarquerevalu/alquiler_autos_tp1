@@ -208,7 +208,7 @@
 															+ "<h1> <spring:message code='home.auto.pasajeros'/><small> "
 															+ data.pasajeros
 															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.precio'/><small> "
+															+ "<h1> <spring:message code='home.auto.precio'/><small> $"
 															+ data.precio
 															+ " </small></h1>"
 															+ "<h1> <spring:message code='home.auto.tipo'/><small> "
