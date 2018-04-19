@@ -38,6 +38,11 @@ public class UserInfoService implements IUserInfoService {
 	}
 	
 	@Override
+	public UserInfo findByEmail(String email) {
+		return dao.findByEmail(email);
+	}
+	
+	@Override
 	public UserInfo findById(long id) {
 		return dao.findOne(id);
 	}

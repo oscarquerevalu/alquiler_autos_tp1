@@ -53,9 +53,11 @@
 				<spring:message code="create.input.telefono" var="telefonoLabel"/>
 				<form:input path="telefono" class="form-control" placeholder="${telefonoLabel}" required="true"/>
 				
+				<div id="email-alert" style="display: none;" class="alert alert-warning">
+				</div>
 				<form:errors path="email" element="div" class="alert alert-warning" />
 				<spring:message code="create.input.email" var="emailLabel"/>
-				<form:input path="email" class="form-control" placeholder="${emailLabel}" required="true"/>
+				<form:input path="email" class="form-control" placeholder="${emailLabel}" required="true" onblur="checkEmailExist(this.value)"/>
 				
 				<form:errors path="direccion" element="div" class="alert alert-warning" />
 				<spring:message code="create.input.direccion" var="direccionLabel"/>
@@ -140,6 +142,29 @@
 			      	 			} else {
 				      	 		    $(":submit").removeAttr("disabled");
 			      	 				$("#user-alert").hide().html("");
+			      	 			}
+		      	 	        	//alert("Data: " + data );
+		      	 			} 
+		      	 	    });
+	      	 		}
+	      	 	}
+
+	      	 	function checkEmailExist(email){
+	      	 		if(email){
+	      	 			/* $("#loading-image").css('display', 'inline'); */
+	      	 			var url = "<spring:url value="/user/checkemail" />";
+		      	 		 $.ajax({
+		      	 			url:url,
+		      	 			data: {email:email},
+		    				type : "GET",
+		      	 			success: function(data){
+			      	 		/* 	$("#loading-image").css('display', 'none'); */
+			      	 			if(data === 'true'){ 
+			      	 				$(":submit").attr("disabled", true);
+			      	 				$("#email-alert").show().html("<spring:message code='create.message.emailExistente.parte1'/><strong> " + email + " </strong><spring:message code='create.message.emailExistente.parte2'/>"  );
+			      	 			} else {
+				      	 		    $(":submit").removeAttr("disabled");
+			      	 				$("#email-alert").hide().html("");
 			      	 			}
 		      	 	        	//alert("Data: " + data );
 		      	 			} 

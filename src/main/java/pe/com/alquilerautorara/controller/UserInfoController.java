@@ -76,6 +76,17 @@ public class UserInfoController {
 	public @ResponseBody String checkUsernameExist(@RequestParam String username) {
 		return String.valueOf(Objects.nonNull(userInfoService.findByUsername(username)));
 	}
+	
+	/**
+	 * Utilizado para verificar se um usuario já esta cadastrdo.
+	 * 
+	 * @param email
+	 * @return <code>true</code> se existir ou <code>false</code> caso nao exista.
+	 */
+	@RequestMapping(value = "/checkemail", method = RequestMethod.GET)
+	public @ResponseBody String checkEmailExist(@RequestParam String email) {
+		return String.valueOf(Objects.nonNull(userInfoService.findByEmail(email)));
+	}
 
 	/**
 	 * Acesso a pagina de edicao.

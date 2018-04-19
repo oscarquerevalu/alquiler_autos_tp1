@@ -15,4 +15,6 @@ public interface UserInfoDao extends CrudRepository<UserInfo, Long>{
 
 	public UserInfo findByUsername(String username);
 	
+	public UserInfo findByEmail(String email);
+	
 }

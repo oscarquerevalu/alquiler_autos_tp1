@@ -10,7 +10,7 @@
 <html lang="es-pe">
 <head>
 <meta charset="UTF-8">
-<title><spring:message code="reservar.title" /></title>
+<title><spring:message code="reserva.title" /></title>
 <link href="<spring:url value="/resources/css/bootstrap.min.css" />"
 	rel="stylesheet">
 <link href="<spring:url value="/resources/css/geral.css" />"

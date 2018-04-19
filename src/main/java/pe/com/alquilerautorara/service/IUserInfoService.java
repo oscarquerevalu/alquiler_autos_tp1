@@ -10,6 +10,8 @@ public interface IUserInfoService {
 	
 	UserInfo findByUsername(String username);
 	
+	UserInfo findByEmail(String email);
+	
 	List<UserInfo> list();
 	
 	void remover(long id);
