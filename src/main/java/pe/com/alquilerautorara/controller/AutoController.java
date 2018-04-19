@@ -113,7 +113,7 @@ public class AutoController {
 	public @ResponseBody Auto findbyId(@RequestParam Integer id) {
 		
 		Auto auto = autoService.findById(id);
-		if (auto.getReservas()!= null && auto.getReservas().size() == auto.getCantidad()) {
+		if (auto.getReservas()!= null && auto.getReservas().size() >= auto.getCantidad()) {
 			auto.setDisponible(false);
 		}else 
 			auto.setDisponible(true);

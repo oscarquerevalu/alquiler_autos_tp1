@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pe.com.alquilerautorara.model.UserInfo;
 import pe.com.alquilerautorara.service.IUserInfoService;
+import pe.com.alquilerautorara.service.MailService;
 
 /**
  * Controler responsável peleas urls de usuarios.
@@ -36,6 +37,9 @@ public class UserInfoController {
 
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	MailService mailService;
 
 	/**
 	 * Acesso a página principal.
@@ -62,6 +66,7 @@ public class UserInfoController {
 		}
 		userInfoService.save(userInfo);
 		model.addAttribute("message", messageSource.getMessage("message.user.save", null, Locale.getDefault()));
+		mailService.sendEmail(userInfo);
 		return "redirect:/user/create";
 
 	}

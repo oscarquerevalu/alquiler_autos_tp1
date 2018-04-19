@@ -1,5 +1,8 @@
 package pe.com.alquilerautorara.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.Message;
 import javax.mail.Multipart;
 import javax.mail.internet.InternetAddress;
@@ -12,22 +15,24 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import freemarker.template.Configuration;
 import pe.com.alquilerautorara.model.Reserva;
+import pe.com.alquilerautorara.model.UserInfo;
 
 @Component
 public class MailServiceImpl implements MailService {
 
 	@Autowired
 	JavaMailSender mailSender;
+	
+	@Autowired
+	Configuration freemarkerConfiguration;
 
 	@Override
 	public void sendEmail(Object object) {
-
-		Reserva reserva = (Reserva) object;
-
-		MimeMessagePreparator preparator = getMessagePreparator(reserva);
-
+		MimeMessagePreparator preparator = getMessagePreparator(object);			
 		try {
 //			SimpleMailMessage message = new SimpleMailMessage(); 
 //	        message.setTo(reserva.getUserInfo().getEmail()); 
@@ -42,29 +47,43 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	private MimeMessagePreparator getMessagePreparator(final Reserva reserva) {
+	private MimeMessagePreparator getMessagePreparator(final Object obj) {
 
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				mimeMessage.setFrom(new InternetAddress("alquilerautosrara@gmail.com", "Alquiler Autos Rara"));
-				mimeMessage.setRecipient(Message.RecipientType.TO,
-						new InternetAddress(reserva.getUserInfo().getEmail()));
+				String html = "";
+				if(obj instanceof Reserva) {
+					Reserva reserva = (Reserva) obj;
+					mimeMessage.setRecipient(Message.RecipientType.TO,
+							new InternetAddress(reserva.getUserInfo().getEmail()));
+					
+					html = "<h3>Dear " + reserva.getUserInfo().getName() +
+							", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ".</h3>"+
+							"<h3><b>Detail Car</b></h3>"+
+							"<h4> Category: <small> " + reserva.getAuto().getCategoria() + " </small></h4>\r\n" + 
+							"<h4> Name: <small> " + reserva.getAuto().getNombre() + " </small></h4>\r\n" + 
+							"<h4> Passengers: <small>" + reserva.getAuto().getPasajeros()+ " </small></h4>\r\n" + 
+							"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
+							"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
+							"<h3><b>Detail Reserve</b></h3>"+
+							"<h4>Date: <small>"+ reserva.getFechaReserva()+"</small></h4>\r\n" +
+							"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
+					mimeMessage.setSubject("Your reserve on AlquilerautosRara");
+				}
+				if(obj instanceof UserInfo) {
+					UserInfo user = (UserInfo) obj;
+					mimeMessage.setRecipient(Message.RecipientType.TO,
+							new InternetAddress(user.getEmail()));
+	               	Map<String, Object> model = new HashMap<String, Object>();
+	                model.put("user", user);
+	                
+	                html = geFreeMarkerTemplateContent(model);
+	                System.out.println("Template content : "+html);
+	                mimeMessage.setSubject("Welcome to AlquilerautosRara");
+				}
 				
-//				String text = "Dear " + reserva.getUserInfo().getName()
-//						+ ", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ". with Date "+ reserva.getFechaReserva()+".";
-				
-				String html = "<h3>Dear " + reserva.getUserInfo().getName() +
-						", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ".</h3>"+
-						"<h3><b>Detail Car</b></h3>"+
-						"<h4> Category: <small> " + reserva.getAuto().getCategoria() + " </small></h4>\r\n" + 
-						"<h4> Name: <small> " + reserva.getAuto().getNombre() + " </small></h4>\r\n" + 
-						"<h4> Passengers: <small>" + reserva.getAuto().getPasajeros()+ " </small></h4>\r\n" + 
-						"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
-						"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
-						"<h3><b>Detail Reserve</b></h3>"+
-						"<h4>Date: <small>"+ reserva.getFechaReserva()+"</small></h4>\r\n" +
-						"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
 				
 				 Multipart multipart = new MimeMultipart( "alternative" );
 
@@ -78,10 +97,23 @@ public class MailServiceImpl implements MailService {
 				    multipart.addBodyPart( htmlPart );
 				mimeMessage.setContent(multipart);
 				
-				mimeMessage.setSubject("Your reserve on Alquilerautosweb");
+				
 			}
 		};
 		return preparator;
 	}
+	
+	public String geFreeMarkerTemplateContent(Map<String, Object> model){
+		StringBuffer content = new StringBuffer();
+		try{
+         content.append(FreeMarkerTemplateUtils.processTemplateIntoString( 
+        		 freemarkerConfiguration.getTemplate("fm_mailWelcome.txt"),model));
+         return content.toString();
+		}catch(Exception e){
+			System.out.println("Exception occured while processing fmtemplate:"+e.getMessage());
+		}
+	      return "";
+	}
+
 
 }

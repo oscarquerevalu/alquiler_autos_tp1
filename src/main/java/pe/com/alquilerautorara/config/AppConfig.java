@@ -27,6 +27,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -265,6 +266,16 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 	    props.put("mail.debug", "true");
 	     
 	    return mailSender;
+	}
+	
+	/*
+	 * FreeMarker configuration.
+	 */
+	@Bean
+	public FreeMarkerConfigurationFactoryBean getFreeMarkerConfiguration() {
+		FreeMarkerConfigurationFactoryBean bean = new FreeMarkerConfigurationFactoryBean();
+		bean.setTemplateLoaderPath("classpath:fmtemplates/");
+		return bean;
 	}
 
 }
