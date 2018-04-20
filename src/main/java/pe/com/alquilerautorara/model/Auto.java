@@ -68,16 +68,61 @@ public class Auto implements Serializable{
 	@OneToMany(fetch = FetchType.EAGER,mappedBy="auto", cascade = CascadeType.ALL)
     private Set<Reserva> reservas;
 	
+	@Column
+	@NotEmpty
+	private String aireAcondicionado;
+	
+	@Column
+	@NotEmpty
+	private String tipoAsiento;
+	
+	@Column
+	@NotEmpty
+	private String radio;
+	
+	@Column
+	@NotEmpty
+	private Integer puertoUsb;
+	
+	@Column
+	@NotEmpty
+	private String camaraRetro;
+	
+	@Column
+	@NotEmpty
+	private String interCol;
+	
+	@Column
+	@NotEmpty
+	private String cntrlVoz;
+	
+	@Column
+	@NotEmpty
+	private String bluetooth;
+	
+	@Column
+	@NotEmpty
+	private String encendidoAuto;
+	
+	@Column
+	@NotEmpty
+	private String sistNav;
+	
+	@Column
+	@NotEmpty
+	private Double seguroVehiculo;
+	
 	@Transient
 	private boolean disponible;
-
+	
 
 	public Auto() {
 	}
 	
-	
 	public Auto(Long id, String nombre, String tipo, String transmision, String categoria, String pasajeros,
-			Double precio, Integer cantidad, Integer capacidad, Set<Reserva> reservas) {
+			Double precio, Integer cantidad, Integer capacidad, Set<Reserva> reservas, String aireAcondicionado,
+			String tipoAsiento, String radio, Integer puertoUsb, String camaraRetro, String interCol, String cntrlVoz,
+			String bluetooth, String encendidoAuto, String sistNav, Double seguroVehiculo, boolean disponible) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -89,8 +134,195 @@ public class Auto implements Serializable{
 		this.cantidad = cantidad;
 		this.capacidad = capacidad;
 		this.reservas = reservas;
+		this.aireAcondicionado = aireAcondicionado;
+		this.tipoAsiento = tipoAsiento;
+		this.radio = radio;
+		this.puertoUsb = puertoUsb;
+		this.camaraRetro = camaraRetro;
+		this.interCol = interCol;
+		this.cntrlVoz = cntrlVoz;
+		this.bluetooth = bluetooth;
+		this.encendidoAuto = encendidoAuto;
+		this.sistNav = sistNav;
+		this.seguroVehiculo = seguroVehiculo;
+		this.disponible = disponible;
 	}
 
+
+
+
+
+	public String getAireAcondicionado() {
+		return aireAcondicionado;
+	}
+
+
+
+
+
+	public void setAireAcondicionado(String aireAcondicionado) {
+		this.aireAcondicionado = aireAcondicionado;
+	}
+
+
+
+
+
+	public String getTipoAsiento() {
+		return tipoAsiento;
+	}
+
+
+
+
+
+	public void setTipoAsiento(String tipoAsiento) {
+		this.tipoAsiento = tipoAsiento;
+	}
+
+
+
+
+
+	public String getRadio() {
+		return radio;
+	}
+
+
+
+
+
+	public void setRadio(String radio) {
+		this.radio = radio;
+	}
+
+
+
+
+
+	public Integer getPuertoUsb() {
+		return puertoUsb;
+	}
+
+
+
+
+
+	public void setPuertoUsb(Integer puertoUsb) {
+		this.puertoUsb = puertoUsb;
+	}
+
+
+
+
+
+	public String getCamaraRetro() {
+		return camaraRetro;
+	}
+
+
+
+
+
+	public void setCamaraRetro(String camaraRetro) {
+		this.camaraRetro = camaraRetro;
+	}
+
+
+
+
+
+	public String getInterCol() {
+		return interCol;
+	}
+
+
+
+
+
+	public void setInterCol(String interCol) {
+		this.interCol = interCol;
+	}
+
+
+
+
+
+	public String getCntrlVoz() {
+		return cntrlVoz;
+	}
+
+
+
+
+
+	public void setCntrlVoz(String cntrlVoz) {
+		this.cntrlVoz = cntrlVoz;
+	}
+
+
+
+
+
+	public String getBluetooth() {
+		return bluetooth;
+	}
+
+
+
+
+
+	public void setBluetooth(String bluetooth) {
+		this.bluetooth = bluetooth;
+	}
+
+
+
+
+
+	public String getEncendidoAuto() {
+		return encendidoAuto;
+	}
+
+
+
+
+
+	public void setEncendidoAuto(String encendidoAuto) {
+		this.encendidoAuto = encendidoAuto;
+	}
+
+
+
+
+
+	public String getSistNav() {
+		return sistNav;
+	}
+
+
+
+
+
+	public void setSistNav(String sistNav) {
+		this.sistNav = sistNav;
+	}
+
+
+
+
+
+	public Double getSeguroVehiculo() {
+		return seguroVehiculo;
+	}
+
+
+
+
+
+	public void setSeguroVehiculo(Double seguroVehiculo) {
+		this.seguroVehiculo = seguroVehiculo;
+	}
 
 
 	public Long getId() {
@@ -183,14 +415,6 @@ public class Auto implements Serializable{
 	}
 
 
-	@Override
-	public String toString() {
-		return "Auto [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", transmision=" + transmision
-				+ ", categoria=" + categoria + ", pasajeros=" + pasajeros + ", precio=" + precio + ", capacidad="
-				+ capacidad + "]";
-	}
-
-
 	public Integer getCantidad() {
 		return cantidad;
 	}
@@ -208,6 +432,18 @@ public class Auto implements Serializable{
 
 	public void setDisponible(boolean disponible) {
 		this.disponible = disponible;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Auto [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", transmision=" + transmision
+				+ ", categoria=" + categoria + ", pasajeros=" + pasajeros + ", precio=" + precio + ", cantidad="
+				+ cantidad + ", capacidad=" + capacidad + ", reservas=" + reservas + ", aireAcondicionado="
+				+ aireAcondicionado + ", tipoAsiento=" + tipoAsiento + ", radio=" + radio + ", puertoUsb=" + puertoUsb
+				+ ", camaraRetro=" + camaraRetro + ", interCol=" + interCol + ", cntrlVoz=" + cntrlVoz + ", bluetooth="
+				+ bluetooth + ", encendidoAuto=" + encendidoAuto + ", sistNav=" + sistNav + ", seguroVehiculo="
+				+ seguroVehiculo + ", disponible=" + disponible + "]";
 	}
 	
 	

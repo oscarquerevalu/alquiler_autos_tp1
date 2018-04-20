@@ -199,24 +199,58 @@
 									$("#auto-info")
 											.show()
 											.html(
-													"<h1> <spring:message code='home.auto.categoria'/><small> "
+													"<h3> <spring:message code='home.auto.categoria'/><small> "
 															+ data.categoria
-															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.nombre'/><small> "
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.nombre'/><small> "
 															+ data.nombre
-															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.pasajeros'/><small> "
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.pasajeros'/><small> "
 															+ data.pasajeros
-															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.precio'/><small> $"
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.precio'/><small> $"
 															+ data.precio
-															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.tipo'/><small> "
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.tipo'/><small> "
 															+ data.tipo
-															+ " </small></h1>"
-															+ "<h1> <spring:message code='home.auto.transmision'/><small> "
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.transmision'/><small> "
 															+ data.transmision
-															+ " </small></h1>"
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.aireAcondicionado'/><small> "
+															+ data.aireAcondicionado
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.tipoAsiento'/><small> "
+															+ data.tipoAsiento
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.radio'/><small> "
+															+ data.radio
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.puertoUsb'/><small> "
+															+ data.puertoUsb
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.camaraRetro'/><small> "
+															+ data.camaraRetro
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.interCol'/><small> "
+															+ data.interCol
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.cntrlVoz'/><small> "
+															+ data.cntrlVoz
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.bluetooth'/><small> "
+															+ data.bluetooth
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.encendidoAuto'/><small> "
+															+ data.encendidoAuto
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.sistNav'/><small> "
+															+ data.sistNav
+															+ " </small></h3>"
+															+ "<h3> <spring:message code='home.auto.seguroVehiculo'/><small> $"
+															+ data.seguroVehiculo
+															+ " </small></h3>"
+															+ "<a target='_blank' href='<c:url value='/seguro/download/internal' />'><spring:message code='home.auto.politicas'/></a><br>"
 															+ textDisponible);
 								}
 								//alert("Data: " + data );
