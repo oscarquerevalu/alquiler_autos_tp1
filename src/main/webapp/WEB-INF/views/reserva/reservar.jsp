@@ -102,13 +102,26 @@
 			<form:input path="auto.precio" class="form-control"
 				placeholder="${precioLabel}" required="true" readonly="readonly" />
 				
-				<form:errors path="fechaReserva" element="div" class="alert alert-warning" />
-				<spring:message code="reserva.input.fecha" var="fechaLabel"/>
-				<form:input path="fechaReserva" readonly="readonly" id="fecha-input" class="form-control" placeholder="${fechaLabel}" required="true"/>
-				
-				<form:hidden path="estado"/>
-				<form:hidden path="precio"/>
-				<form:hidden path="auto.id"/>
+				<div id="fecha-alert" style="display: none;" class="alert alert-warning">
+				</div>
+
+			<form:errors path="fechaReservaIni" element="div"
+				class="alert alert-warning" />
+			<spring:message code="reserva.input.fechaIni" var="fechaIniLabel" />
+			<form:input path="fechaReservaIni" readonly="readonly" id="fechaIni-input"
+				class="form-control" placeholder="${fechaIniLabel}" required="true"
+				onblur="checkReserveExist()" />
+
+			<form:errors path="fechaReservaFin" element="div"
+				class="alert alert-warning" />
+			<spring:message code="reserva.input.fechaFin" var="fechaFinLabel" />
+			<form:input path="fechaReservaFin" readonly="readonly" id="fechaFin-input"
+				class="form-control" placeholder="${fechaFinLabel}" required="true"
+				onblur="checkReserveExist()" />
+
+			<form:hidden path="estado" />
+			<form:hidden path="precio" />
+			<form:hidden path="auto.id" />
 			<div class="form-actions">
 				<form:button type="submit" id="btn-salvar"
 					class="btn btn-lg btn-primary btn-block">
@@ -126,7 +139,26 @@
 			$(document).ready(
 					function() {
 						var date = new Date();
-						$("#fecha-input").datepicker(
+						$("#fechaIni-input").datepicker(
+								{
+									yearRange : date.getFullYear() - 150 + ":"
+											+ date.getFullYear(),
+									changeMonth : true,
+									changeYear : true,
+									minDate : "+0 +0",
+									dateFormat : "dd/mm/yy",
+									onSelect:function(selectedDate){
+				                    	/*alert(selectedDate);*/
+				                    	//var day = day.getDay();
+				                    	//alert(day);
+				                    $('#fechaFin-input').val(selectedDate);
+				                    var fechaSeparada = selectedDate.split("/");
+				                    $( "#fechaFin-input" ).datepicker( "option", "disabled", false );
+				                    $('#fechaFin-input').datepicker("option", "minDate", new Date(fechaSeparada[2], parseInt(fechaSeparada[1]) - 1, parseInt(fechaSeparada[0])+1 ));
+				                    },
+								}).attr('readonly', 'readonly');
+
+						$("#fechaFin-input").datepicker(
 								{
 									yearRange : date.getFullYear() - 150 + ":"
 											+ date.getFullYear(),
@@ -135,8 +167,46 @@
 									minDate : "+0 +0",
 									dateFormat : "dd/mm/yy",
 								}).attr('readonly', 'readonly');
+						$("#fechaFin-input").datepicker('disable');
 					});
 
+			function checkReserveExist(fecha) {
+				var fechaIni = $("#fechaIni-input").val();
+				var fechaFin = $("#fechaFin-input").val();
+				
+				if (fechaIni && fechaFin) {
+					/* $("#loading-image").css('display', 'inline'); */
+					var url = "<spring:url value="/reserva/checkreserve" />";
+					$
+							.ajax({
+								url : url,
+								data : {
+									fechaIni : fechaIni,
+									fechaFin : fechaFin
+								},
+								type : "GET",
+								headers : {
+									"Accept" : "application/json"
+								},
+								contentType: "application/json; charset=utf-8",
+								dataType: "json",
+								success : function(data) {
+									/* 	$("#loading-image").css('display', 'none'); */
+									if (data) {
+										$(":submit").attr("disabled", true);
+										$("#fecha-alert")
+												.show()
+												.html(
+														"<spring:message code='create.message.fechaReserva'/>");
+									} else {
+										$(":submit").removeAttr("disabled");
+										$("#fecha-alert").hide().html("");
+									}
+									//alert("Data: " + data );
+								}
+							});
+				}
+			}
 		</script>
 	</div>
 </body>

@@ -41,7 +41,12 @@ public class Reserva implements Serializable {
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	@Column
 	@NotNull
-	private LocalDate fechaReserva;
+	private LocalDate fechaReservaIni;
+	
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Column
+	@NotNull
+	private LocalDate fechaReservaFin;
 	
 	@Column
 	private Double precio;
@@ -53,15 +58,34 @@ public class Reserva implements Serializable {
 	public Reserva() {
 	}
 
-	public Reserva(Long id, Auto auto, UserInfo userInfo, LocalDate fechaReserva, Double precio, String estado) {
+
+	public Reserva(Long id, Auto auto, UserInfo userInfo, LocalDate fechaReservaIni, LocalDate fechaReservaFin,
+			Double precio, String estado) {
 		super();
 		this.id = id;
 		this.auto = auto;
 		this.userInfo = userInfo;
-		this.fechaReserva = fechaReserva;
+		this.fechaReservaIni = fechaReservaIni;
+		this.fechaReservaFin = fechaReservaFin;
 		this.precio = precio;
 		this.estado = estado;
 	}
+
+
+
+
+	public LocalDate getFechaReservaIni() {
+		return fechaReservaIni;
+	}
+
+
+
+
+	public void setFechaReservaIni(LocalDate fechaReservaIni) {
+		this.fechaReservaIni = fechaReservaIni;
+	}
+
+
 
 
 	public Long getId() {
@@ -84,16 +108,6 @@ public class Reserva implements Serializable {
 	}
 
 
-	public LocalDate getFechaReserva() {
-		return fechaReserva;
-	}
-
-
-	public void setFechaReserva(LocalDate fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
-
-
 	public Double getPrecio() {
 		return precio;
 	}
@@ -111,18 +125,21 @@ public class Reserva implements Serializable {
 		this.userInfo = userInfo;
 	}
 
-	@Override
-	public String toString() {
-		return "Reserva [id=" + id + ", auto=" + auto + ", userInfo=" + userInfo + ", fechaReserva=" + fechaReserva
-				+ ", precio=" + precio + "]";
-	}
-
 	public String getEstado() {
 		return estado;
 	}
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+
+	public LocalDate getFechaReservaFin() {
+		return fechaReservaFin;
+	}
+
+	public void setFechaReservaFin(LocalDate fechaReservaFin) {
+		this.fechaReservaFin = fechaReservaFin;
 	}
 	
 }
