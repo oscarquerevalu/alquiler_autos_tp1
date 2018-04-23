@@ -64,9 +64,11 @@ public class UserInfoController {
 		if (result.hasErrors()) {
 			return "user/create";
 		}
+		
+		boolean newUser = Objects.nonNull(userInfoService.findByUsername(userInfo.getUsername()));
 		userInfoService.save(userInfo);
 		model.addAttribute("message", messageSource.getMessage("message.user.save", null, Locale.getDefault()));
-		mailService.sendEmail(userInfo);
+		if(!newUser)mailService.sendEmail(userInfo);
 		return "redirect:/user/create";
 
 	}
@@ -103,6 +105,20 @@ public class UserInfoController {
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") int id, Model model) {
 		UserInfo userInfo = userInfoService.findById(id);
+		model.addAttribute("userInfo", userInfo);
+		return "user/create";
+	}
+	
+	/**
+	 * Acesso a pagina de edicao.
+	 * 
+	 * @param id
+	 * @param model
+	 * @return pagina de edicao.
+	 */
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public String edit(Model model) {
+		UserInfo userInfo = userInfoService.getAuthentication();
 		model.addAttribute("userInfo", userInfo);
 		return "user/create";
 	}

@@ -43,11 +43,12 @@
 						class="navbar-brand" href="?lang=pt_BR"><img alt="Portugues"
 						src="<spring:url value="/resources/images/brasil.jpeg" />"></a>
 				</div>
+				<c:url var="edit_url" value="/user/edit" />
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="#">Home</a></li>
 					<li><a href="#">Reserva</a></li>
 					<li><a href="#">Ofertas</a></li>
-					<li><a href="#">Cliente</a></li>
+					<li><a href="${edit_url}">Cliente</a></li>
 				</ul>
 				<div class="div-actions">
 					<c:url var="logout_url" value="/logout?logout" />

@@ -127,6 +127,7 @@
 	      	 	 }
 	      	 	
 	      	 	function checkUsernameExist(username){
+	      	 		if($("#id").val() != '') return;
 	      	 		if(username){
 	      	 			/* $("#loading-image").css('display', 'inline'); */
 	      	 			var url = "<spring:url value="/user/checkusername" />";
@@ -150,6 +151,7 @@
 	      	 	}
 
 	      	 	function checkEmailExist(email){
+		      	 	if($("#id").val() != '') return;
 	      	 		if(email){
 	      	 			/* $("#loading-image").css('display', 'inline'); */
 	      	 			var url = "<spring:url value="/user/checkemail" />";
