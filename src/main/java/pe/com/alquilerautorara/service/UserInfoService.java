@@ -45,9 +45,15 @@ public class UserInfoService implements IUserInfoService {
 				.createQuery("select u from UserInfo u where u.username = :username")
 				.setParameter("username", username).getResultList();
 //				List list = query.list();
-		UserInfo result = (UserInfo) list.get(0);
-				if (result == null) return null;
-		return result;
+		if(list.size()>0) {
+			UserInfo result = (UserInfo) list.get(0);
+			if (result == null) return null;
+			return result;
+		}
+		else {
+			return dao.findByUsername(username);
+		}
+//		return null;
 	}
 	
 	@Override
