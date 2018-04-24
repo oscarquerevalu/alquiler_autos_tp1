@@ -68,7 +68,7 @@ public class MailServiceImpl implements MailService {
 							"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
 							"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
 							"<h3><b>Detail Reserve</b></h3>"+
-							"<h4>Date: <small>"+ reserva.getFechaReserva()+"</small></h4>\r\n" +
+							"<h4>Date: <small>"+ reserva.getFechaReservaIni()+" to "+ reserva.getFechaReservaFin()+" </small></h4>\r\n" +
 							"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
 					mimeMessage.setSubject("Your reserve on AlquilerautosRara");
 				}

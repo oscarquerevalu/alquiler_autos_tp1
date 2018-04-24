@@ -1,6 +1,9 @@
 package pe.com.alquilerautorara.controller;
 
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -22,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import pe.com.alquilerautorara.model.Auto;
 import pe.com.alquilerautorara.model.Reserva;
 import pe.com.alquilerautorara.model.UserInfo;
-import pe.com.alquilerautorara.service.AutoService;
 import pe.com.alquilerautorara.service.IAutoService;
 import pe.com.alquilerautorara.service.IReservaService;
 import pe.com.alquilerautorara.service.IUserInfoService;
@@ -100,7 +102,8 @@ public class ReservaController {
 		UserInfo userInfo = userInfoService.getAuthentication();
 		reserva.setAuto(auto);
 		reserva.setUserInfo(userInfo);
-		
+		long elapsedDays = ChronoUnit.DAYS.between(reserva.getFechaReservaIni(), reserva.getFechaReservaFin()) + 1;
+		reserva.setPrecio((elapsedDays*(auto.getPrecio() + auto.getSeguroVehiculo())));
 		reservaService.save(reserva);
 		mailService.sendEmail(reserva);
 		model.addAttribute("message", messageSource.getMessage("message.reserva.save", null, Locale.getDefault()));
@@ -163,6 +166,23 @@ public class ReservaController {
 		reserva.setEstado("RESERVADO");
 		model.addAttribute("reserva", reserva);
 		return "reserva/reservar";
+	}
+	
+	/**
+	 * Utilizado para verificar se um usuario já esta cadastrdo.
+	 * 
+	 * @param fechaIni
+	 * @param fechaFin
+	 * @return <code>true</code> se existir ou <code>false</code> caso nao exista.
+	 */
+	@RequestMapping(value = "/checkreserve",headers="Accept=*/*",produces="application/json", method = RequestMethod.GET)
+	public @ResponseBody String checkReserveExist(@RequestParam  String fechaIni,@RequestParam String  fechaFin) {
+		UserInfo userInfo = userInfoService.getAuthentication();
+
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	    LocalDate dfechaIni = LocalDate.parse(fechaIni, formatter);
+	    LocalDate dfechaFin = LocalDate.parse(fechaFin, formatter);
+		return String.valueOf(Objects.nonNull(reservaService.findByDateReserve(userInfo.getId(),dfechaIni, dfechaFin)));
 	}
 
 }

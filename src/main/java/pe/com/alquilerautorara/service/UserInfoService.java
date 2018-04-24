@@ -3,6 +3,10 @@ package pe.com.alquilerautorara.service;
 import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +24,9 @@ public class UserInfoService implements IUserInfoService {
 	
 	@Autowired
 	private PasswordEncoder encoder;
+	
+	@PersistenceContext(type = PersistenceContextType.EXTENDED)
+	private EntityManager entityManager;
 
 	@Override
 	public UserInfo save(UserInfo userInfo) {
@@ -34,7 +41,19 @@ public class UserInfoService implements IUserInfoService {
 
 	@Override
 	public UserInfo findByUsername(String username) {
-		return dao.findByUsername(username);
+		List list =entityManager
+				.createQuery("select u from UserInfo u where u.username = :username")
+				.setParameter("username", username).getResultList();
+//				List list = query.list();
+		if(list.size()>0) {
+			UserInfo result = (UserInfo) list.get(0);
+			if (result == null) return null;
+			return result;
+		}
+		else {
+			return dao.findByUsername(username);
+		}
+//		return null;
 	}
 	
 	@Override

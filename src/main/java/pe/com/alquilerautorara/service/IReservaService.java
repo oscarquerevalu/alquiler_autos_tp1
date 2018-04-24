@@ -1,8 +1,8 @@
 package pe.com.alquilerautorara.service;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import pe.com.alquilerautorara.model.Auto;
 import pe.com.alquilerautorara.model.Reserva;
 
 public interface IReservaService {
@@ -16,5 +16,7 @@ public interface IReservaService {
 	void remover(long id);
 
 	Reserva findById(long id);
+
+	Boolean findByDateReserve(Long id, LocalDate fecIni, LocalDate fechFin);
 	
 }
