@@ -32,6 +32,9 @@
 					<c:url var="create_url" value="/user/create" />
 					<a href="${create_url}" class="btn btn-lg btn-primary btn-block"><spring:message code="login.btnewuser.label"/></a>
 				</div>
+				<div class="col-md-12">
+                    Forgot password? <a href="http://localhost:9000/forgot-password">Reset password</a>
+                </div>
 			</form:form>
 		</div>
 	</body>
