@@ -439,6 +439,17 @@ public class Auto implements Serializable{
 	public String toString() {
 		return "Auto [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", transmision=" + transmision
 				+ ", categoria=" + categoria + ", pasajeros=" + pasajeros + ", precio=" + precio + ", cantidad="
+				+ cantidad + ", capacidad=" + capacidad + ", aireAcondicionado="
+				+ aireAcondicionado + ", tipoAsiento=" + tipoAsiento + ", radio=" + radio + ", puertoUsb=" + puertoUsb
+				+ ", camaraRetro=" + camaraRetro + ", interCol=" + interCol + ", cntrlVoz=" + cntrlVoz + ", bluetooth="
+				+ bluetooth + ", encendidoAuto=" + encendidoAuto + ", sistNav=" + sistNav + ", seguroVehiculo="
+				+ seguroVehiculo + ", disponible=" + disponible + "]";
+	}
+/*
+	@Override
+	public String toString() {
+		return "Auto [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + ", transmision=" + transmision
+				+ ", categoria=" + categoria + ", pasajeros=" + pasajeros + ", precio=" + precio + ", cantidad="
 				+ cantidad + ", capacidad=" + capacidad + ", reservas=" + reservas + ", aireAcondicionado="
 				+ aireAcondicionado + ", tipoAsiento=" + tipoAsiento + ", radio=" + radio + ", puertoUsb=" + puertoUsb
 				+ ", camaraRetro=" + camaraRetro + ", interCol=" + interCol + ", cntrlVoz=" + cntrlVoz + ", bluetooth="
@@ -446,6 +457,6 @@ public class Auto implements Serializable{
 				+ seguroVehiculo + ", disponible=" + disponible + "]";
 	}
 	
-	
+	*/
 	
 }
