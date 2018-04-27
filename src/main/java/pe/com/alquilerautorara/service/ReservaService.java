@@ -1,6 +1,7 @@
 package pe.com.alquilerautorara.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,10 +44,37 @@ public class ReservaService implements IReservaService {
 		}
 		return null;
 	}
+	
+	@Override
+	public List<Reserva> listByUser(Long id) {
+		List<Reserva> reservas =  list();
+		List<Reserva> reservasByUser =  new ArrayList<>();
+		if(reservas != null) {
+			for (Reserva reserva : reservas) {
+				if(reserva.getUserInfo().getId() == id)
+					reservasByUser.add(reserva);
+			}
+			return reservasByUser;
+		}
+		return null;
+	}
 
 	@Override
 	public void remover(long id) {
-		dao.delete(id);
+		
+		Reserva reserva = entityManager.find(Reserva.class, id);
+		dao.delete(reserva);
+//        try {
+//           int re = entityManager.createNativeQuery("delete from Reserva as r where r.id = '"+id+"'"
+//                                  ).executeUpdate();      
+//           System.out.println("remove = "+ re);
+//		Reserva reserva = entityManager.find(Reserva.class, id);
+//		entityManager.getTransaction().begin();
+//		entityManager.remove(reserva);
+//		entityManager.getTransaction().commit();
+//        } finally {
+//            em.close();
+//        }
 	}
 
 	@Override
@@ -60,7 +88,7 @@ public class ReservaService implements IReservaService {
 		// TODO Auto-generated method stub
 		
 		List list =entityManager
-		.createQuery("select COUNT(*) from Reserva where userInfo.id = :id AND fechaReservaIni BETWEEN :ini AND :fin or fechaReservaFin BETWEEN :ini AND :fin ")
+		.createQuery("select COUNT(*) from Reserva where userInfo.id = :id AND (fechaReservaIni BETWEEN :ini AND :fin or fechaReservaFin BETWEEN :ini AND :fin) ")
 		.setParameter("id", id)
 		.setParameter("ini", fecIni)
 		.setParameter("fin", fecIni).getResultList();

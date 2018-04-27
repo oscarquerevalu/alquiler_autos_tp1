@@ -4,10 +4,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -71,7 +73,7 @@ public class UserInfo implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	@OneToMany(mappedBy="userInfo")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="userInfo", cascade = CascadeType.REMOVE)
     private List<Reserva> reservas;
 
 	public UserInfo() {

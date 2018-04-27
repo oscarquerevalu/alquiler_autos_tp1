@@ -1,5 +1,6 @@
 package pe.com.alquilerautorara.controller;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import pe.com.alquilerautorara.model.Auto;
 import pe.com.alquilerautorara.model.Reserva;
@@ -98,8 +100,14 @@ public class ReservaController {
 		if (result.hasErrors()) {
 			return "reserva/reservar";
 		}
-		Auto auto = autoService.findById(reserva.getAuto().getId());
 		UserInfo userInfo = userInfoService.getAuthentication();
+		if(Objects.nonNull(reservaService.findByDateReserve(userInfo.getId(),reserva.getFechaReservaIni(), reserva.getFechaReservaFin()))) {
+			model.addAttribute("alert", messageSource.getMessage("create.message.fechaReserva", null, Locale.getDefault()));
+			return "reserva/reservar";
+		}
+		
+		Auto auto = autoService.findById(reserva.getAuto().getId());
+		
 		reserva.setAuto(auto);
 		reserva.setUserInfo(userInfo);
 		long elapsedDays = ChronoUnit.DAYS.between(reserva.getFechaReservaIni(), reserva.getFechaReservaFin()) + 1;
@@ -120,9 +128,9 @@ public class ReservaController {
 	 */
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
 	public String edit(@PathVariable("id") int id, Model model) {
-		Auto auto = autoService.findById(id);
-		model.addAttribute("auto", auto);
-		return "auto/create";
+		Reserva reserva = reservaService.findById(id);
+		model.addAttribute("reserva", reserva);
+		return "reserva/reservar";
 	}
 
 	/**
@@ -134,14 +142,14 @@ public class ReservaController {
 	 * @param model
 	 * @return deloga o usuario (se o usuario deletado for o mesmo que esta autenticado) ou retorna para pagina de listagem.
 	 */
-	@Secured("ROLE_ADMIN")
+	@Secured("ROLE_USER")
 	@RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
 	public String remove(Principal principal, HttpServletRequest httpRequest, @PathVariable("id") long id,
 			Model model) {
-		Auto auto = autoService.findById(id);
-		autoService.remover(id);
-		model.addAttribute("message", messageSource.getMessage("message.auto.removed",
-				new Object[] { auto.getNombre() }, Locale.getDefault()));
+		Reserva reserva = reservaService.findById(id);
+		reservaService.remover(id);
+		model.addAttribute("message", messageSource.getMessage("message.reserva.removed",
+				new Object[] { reserva.getFechaReservaIni() +" - "+  reserva.getFechaReservaFin()}, Locale.getDefault()));
 		return "redirect:/";
 	}
 	
@@ -166,6 +174,22 @@ public class ReservaController {
 		reserva.setEstado("RESERVADO");
 		model.addAttribute("reserva", reserva);
 		return "reserva/reservar";
+	}
+	
+	/**
+	 * Metodo Request para view home
+	 * @param httpRequest
+	 * @return pagina home.
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "/list")
+	public ModelAndView listByUser(HttpServletRequest httpRequest) throws IOException {
+		
+		UserInfo userInfo = userInfoService.getAuthentication();
+		ModelAndView modelAndView = new ModelAndView("reserva/list");
+		modelAndView.addObject("reservas", reservaService.listByUser(userInfo.getId()));
+		modelAndView.addObject("usuarioLogado", userInfo);
+		return modelAndView;
 	}
 	
 	/**

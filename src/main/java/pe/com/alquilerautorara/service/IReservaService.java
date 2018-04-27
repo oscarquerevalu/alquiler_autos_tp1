@@ -13,6 +13,8 @@ public interface IReservaService {
 	
 	List<Reserva> list();
 	
+	List<Reserva> listByUser(Long id);
+	
 	void remover(long id);
 
 	Reserva findById(long id);

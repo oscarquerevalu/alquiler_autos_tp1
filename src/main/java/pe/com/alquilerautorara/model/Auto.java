@@ -65,7 +65,7 @@ public class Auto implements Serializable{
 	@NotEmpty
 	private Integer capacidad;
 	
-	@OneToMany(fetch = FetchType.EAGER,mappedBy="auto", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER,mappedBy="auto", cascade = CascadeType.REMOVE)
     private Set<Reserva> reservas;
 	
 	@Column

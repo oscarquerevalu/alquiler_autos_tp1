@@ -21,6 +21,7 @@
 </head>
 <body>
 	<div class="container">
+	
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -35,6 +36,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#">Home</a></li>
 					<li class="active"><a href="#">Reserva</a></li>
+					<li><a href="#">Mis reservas</a></li>
 					<li><a href="#">Ofertas</a></li>
 					<li><a href="#">Cliente</a></li>
 				</ul>
@@ -58,6 +60,10 @@
 			</c:if>
 			<c:if test="${not empty message}">
 				<div class="message green">${message}</div>
+			</c:if>
+			
+			<c:if test="${not empty alert}">
+				<div class="alert alert-success alert-warning-login">${alert}</div>
 			</c:if>
 			<form:hidden path="id" />
 			<form:errors path="userInfo.name" element="div"
@@ -151,10 +157,10 @@
 				                    	/*alert(selectedDate);*/
 				                    	//var day = day.getDay();
 				                    	//alert(day);
-				                    $('#fechaFin-input').val(selectedDate);
+// 				                    $('#fechaFin-input').val(selectedDate);
 				                    var fechaSeparada = selectedDate.split("/");
 				                    $( "#fechaFin-input" ).datepicker( "option", "disabled", false );
-				                    $('#fechaFin-input').datepicker("option", "minDate", new Date(fechaSeparada[2], parseInt(fechaSeparada[1]) - 1, parseInt(fechaSeparada[0])+1 ));
+				                    $('#fechaFin-input').datepicker("option", "minDate", new Date(fechaSeparada[2], parseInt(fechaSeparada[1]) - 1, parseInt(fechaSeparada[0]) ));
 				                    },
 								}).attr('readonly', 'readonly');
 
@@ -170,7 +176,11 @@
 						$("#fechaFin-input").datepicker('disable');
 					});
 
-			function checkReserveExist(fecha) {
+// 			$('#form-create').submit(function() {
+// 	      		  return checkReserveExist();
+// 	      		});
+
+			function checkReserveExist() {
 				var fechaIni = $("#fechaIni-input").val();
 				var fechaFin = $("#fechaFin-input").val();
 				
@@ -198,9 +208,11 @@
 												.show()
 												.html(
 														"<spring:message code='create.message.fechaReserva'/>");
+										return false;
 									} else {
 										$(":submit").removeAttr("disabled");
 										$("#fecha-alert").hide().html("");
+										return true;
 									}
 									//alert("Data: " + data );
 								}
