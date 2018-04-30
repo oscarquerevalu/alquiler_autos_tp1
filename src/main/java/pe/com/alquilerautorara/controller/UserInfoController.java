@@ -60,7 +60,7 @@ public class UserInfoController {
 	 * @return pagina de cradastro
 	 */
 	@RequestMapping(value = "/create/save", method = RequestMethod.POST)
-	public String save(@Valid UserInfo userInfo, BindingResult result, Model model) {
+	public String save(Locale locale,@Valid UserInfo userInfo, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "user/create";
 		}
@@ -68,7 +68,7 @@ public class UserInfoController {
 		boolean newUser = Objects.nonNull(userInfoService.findByUsername(userInfo.getUsername()));
 		userInfoService.save(userInfo);
 		model.addAttribute("message", messageSource.getMessage("message.user.save", null, Locale.getDefault()));
-		if(!newUser)mailService.sendEmail(userInfo);
+		if(!newUser)mailService.sendEmail(locale,userInfo);
 		return "redirect:/user/create";
 
 	}

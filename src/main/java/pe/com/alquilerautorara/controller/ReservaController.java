@@ -96,7 +96,7 @@ public class ReservaController {
 	 * @return pagina de cradastro
 	 */
 	@RequestMapping(value = "/create/save", method = RequestMethod.POST)
-	public String save(@Valid Reserva reserva, BindingResult result, Model model) {
+	public String save(Locale locale, @Valid Reserva reserva, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			return "reserva/reservar";
 		}
@@ -113,7 +113,7 @@ public class ReservaController {
 		long elapsedDays = ChronoUnit.DAYS.between(reserva.getFechaReservaIni(), reserva.getFechaReservaFin()) + 1;
 		reserva.setPrecio((elapsedDays*(auto.getPrecio() + auto.getSeguroVehiculo())));
 		reservaService.save(reserva);
-		mailService.sendEmail(reserva);
+		mailService.sendEmail(locale,reserva);
 		model.addAttribute("message", messageSource.getMessage("message.reserva.save", null, Locale.getDefault()));
 		return "redirect:/";
 

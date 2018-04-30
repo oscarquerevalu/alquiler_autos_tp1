@@ -1,6 +1,7 @@
 package pe.com.alquilerautorara.service;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import javax.mail.Message;
@@ -11,6 +12,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -29,10 +31,13 @@ public class MailServiceImpl implements MailService {
 	
 	@Autowired
 	Configuration freemarkerConfiguration;
+	
+	@Autowired
+	private MessageSource messageSource;
 
 	@Override
-	public void sendEmail(Object object) {
-		MimeMessagePreparator preparator = getMessagePreparator(object);			
+	public void sendEmail(Locale locale,Object object) {
+		MimeMessagePreparator preparator = getMessagePreparator(locale,object);			
 		try {
 //			SimpleMailMessage message = new SimpleMailMessage(); 
 //	        message.setTo(reserva.getUserInfo().getEmail()); 
@@ -47,7 +52,7 @@ public class MailServiceImpl implements MailService {
 		}
 	}
 
-	private MimeMessagePreparator getMessagePreparator(final Object obj) {
+	private MimeMessagePreparator getMessagePreparator(final Locale locale,final Object obj) {
 
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
@@ -59,18 +64,31 @@ public class MailServiceImpl implements MailService {
 					mimeMessage.setRecipient(Message.RecipientType.TO,
 							new InternetAddress(reserva.getUserInfo().getEmail()));
 					
-					html = "<h3>Dear " + reserva.getUserInfo().getName() +
-							", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ".</h3>"+
-							"<h3><b>Detail Car</b></h3>"+
-							"<h4> Category: <small> " + reserva.getAuto().getCategoria() + " </small></h4>\r\n" + 
-							"<h4> Name: <small> " + reserva.getAuto().getNombre() + " </small></h4>\r\n" + 
-							"<h4> Passengers: <small>" + reserva.getAuto().getPasajeros()+ " </small></h4>\r\n" + 
-							"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
-							"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
-							"<h3><b>Detail Reserve</b></h3>"+
-							"<h4>Date: <small>"+ reserva.getFechaReservaIni()+" to "+ reserva.getFechaReservaFin()+" </small></h4>\r\n" +
-							"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
-					mimeMessage.setSubject("Your reserve on AlquilerautosRara");
+					html = messageSource.getMessage("message.mail.reserva",
+							new Object[] { 	reserva.getUserInfo().getName(),
+											reserva.getId(),
+											reserva.getAuto().getCategoria(),
+											reserva.getAuto().getNombre(),
+											reserva.getAuto().getPasajeros(),
+											reserva.getAuto().getTipo(),
+											reserva.getAuto().getTransmision(),
+											reserva.getFechaReservaIni(),
+											reserva.getFechaReservaFin(),
+											reserva.getPrecio()
+											}, locale);
+					
+//					html = "<h3>Dear " + reserva.getUserInfo().getName() +
+//							", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ".</h3>"+
+//							"<h3><b>Detail Car</b></h3>"+
+//							"<h4> Category: <small> " + reserva.getAuto().getCategoria() + " </small></h4>\r\n" + 
+//							"<h4> Name: <small> " + reserva.getAuto().getNombre() + " </small></h4>\r\n" + 
+//							"<h4> Passengers: <small>" + reserva.getAuto().getPasajeros()+ " </small></h4>\r\n" + 
+//							"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
+//							"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
+//							"<h3><b>Detail Reserve</b></h3>"+
+//							"<h4>Date: <small>"+ reserva.getFechaReservaIni()+" to "+ reserva.getFechaReservaFin()+" </small></h4>\r\n" +
+//							"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
+					mimeMessage.setSubject(messageSource.getMessage("message.mail.reserva.title",null, locale));
 				}
 				if(obj instanceof UserInfo) {
 					UserInfo user = (UserInfo) obj;
@@ -78,10 +96,13 @@ public class MailServiceImpl implements MailService {
 							new InternetAddress(user.getEmail()));
 	               	Map<String, Object> model = new HashMap<String, Object>();
 	                model.put("user", user);
+	                model.put("part1", messageSource.getMessage("message.welcome.part1",null, locale));
+	                model.put("part2", messageSource.getMessage("message.welcome.part2",null, locale));
+	                model.put("body", messageSource.getMessage("message.welcome.body",null, locale));
 	                
 	                html = geFreeMarkerTemplateContent(model);
 	                System.out.println("Template content : "+html);
-	                mimeMessage.setSubject("Welcome to AlquilerautosRara");
+	                mimeMessage.setSubject(messageSource.getMessage("message.welcome.title",null, locale));
 				}
 				
 				
