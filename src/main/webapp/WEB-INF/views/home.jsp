@@ -108,7 +108,7 @@
 				<div
 					class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40 text-center">
 
-					<h1>Lista de Vehículos</h1>
+					<spring:message code='home.title2' />
 
 				</div>
 			</div>
@@ -370,17 +370,16 @@
 									// 	      	 				$("#user-alert").hide().html("");
 									// 	      	 				alert(data);
 									// 									$("#autoId") = data.id;
-									
+
 									var textDisponible;
-									
+
 									if (data.disponible) {
-										textDisponible =  "<c:url var='edit_url' value='/reserva/iniciaReserva/"+ data.id + "' />"
-										+ "<a href='${edit_url}' class='btn btn-lg btn-primary'><spring:message code='home.reserva.reservar'/></a>";
+										textDisponible = "<c:url var='edit_url' value='/reserva/iniciaReserva/"+ data.id + "' />"
+												+ "<a href='${edit_url}' class='btn btn-lg btn-primary'><spring:message code='home.reserva.reservar'/></a>";
+									} else {
+										textDisponible = "<h1> <spring:message code='home.reserva.nodisponible'/></h1>";
 									}
-									else {
-										textDisponible ="<h1> <spring:message code='home.reserva.nodisponible'/></h1>";
-									}
-									
+
 									/*$("#auto-info")
 											.show()
 											.html(
@@ -440,63 +439,73 @@
 								}
 								//alert("Data: " + data );
 								$(".modal-title").text(data.nombre);
-								$(".col-sm2").html("<h3> <spring:message code='home.auto.categoria'/><small> "
-										+ data.categoria
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.nombre'/><small> "
-										+ data.nombre
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.pasajeros'/><small> "
-										+ data.pasajeros
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.precio'/><small> $"
-										+ data.precio
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.tipo'/><small> "
-										+ data.tipo
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.transmision'/><small> "
-										+ data.transmision
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.aireAcondicionado'/><small> "
-										+ data.aireAcondicionado
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.tipoAsiento'/><small> "
-										+ data.tipoAsiento
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.radio'/><small> "
-										+ data.radio
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.puertoUsb'/><small> "
-										+ data.puertoUsb
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.camaraRetro'/><small> "
-										+ data.camaraRetro
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.interCol'/><small> "
-										+ data.interCol
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.cntrlVoz'/><small> "
-										+ data.cntrlVoz
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.bluetooth'/><small> "
-										+ data.bluetooth
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.encendidoAuto'/><small> "
-										+ data.encendidoAuto
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.sistNav'/><small> "
-										+ data.sistNav
-										+ " </small></h3>"
-										+ "<h3> <spring:message code='home.auto.seguroVehiculo'/><small> $"
-										+ data.seguroVehiculo
-										+ " </small></h3>"
-										+ "<a target='_blank' href='<c:url value='/seguro/download/internal' />'><spring:message code='home.auto.politicas'/></a><br>"
-										);
+								$(".col-sm2")
+										.html(
+												"<h3> <spring:message code='home.auto.categoria'/><small> "
+														+ data.categoria
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.nombre'/><small> "
+														+ data.nombre
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.pasajeros'/><small> "
+														+ data.pasajeros
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.precio'/><small> $"
+														+ data.precio
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.tipo'/><small> "
+														+ data.tipo
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.transmision'/><small> "
+														+ data.transmision
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.aireAcondicionado'/><small> "
+														+ data.aireAcondicionado
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.tipoAsiento'/><small> "
+														+ data.tipoAsiento
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.radio'/><small> "
+														+ data.radio
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.puertoUsb'/><small> "
+														+ data.puertoUsb
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.camaraRetro'/><small> "
+														+ data.camaraRetro
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.interCol'/><small> "
+														+ data.interCol
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.cntrlVoz'/><small> "
+														+ data.cntrlVoz
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.bluetooth'/><small> "
+														+ data.bluetooth
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.encendidoAuto'/><small> "
+														+ data.encendidoAuto
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.sistNav'/><small> "
+														+ data.sistNav
+														+ " </small></h3>"
+														+ "<h3> <spring:message code='home.auto.seguroVehiculo'/><small> $"
+														+ data.seguroVehiculo
+														+ " </small></h3>"
+														+ "<a target='_blank' href='<c:url value='/seguro/download/internal' />'><spring:message code='home.auto.politicas'/></a><br>");
 								$("btn-replace").html(textDisponible);
-								$("#imgOne").attr("src","https://casa.com/auto/auto_"+data.id+"_01.jpg");
-								$("#imgTwo").attr("src","https://casa.com/auto/auto_"+data.id+"_02.jpg");
-								$("#imgThree").attr("src","https://casa.com/auto/auto_"+data.id+"_03.jpg");
+								$("#imgOne").attr(
+										"src",
+										"https://casa.com/auto/auto_" + data.id
+												+ "_01.jpg");
+								$("#imgTwo").attr(
+										"src",
+										"https://casa.com/auto/auto_" + data.id
+												+ "_02.jpg");
+								$("#imgThree").attr(
+										"src",
+										"https://casa.com/auto/auto_" + data.id
+												+ "_03.jpg");
 
 							},
 							error : function(jqXHR, textStatus, errorThrown) {
@@ -505,29 +514,37 @@
 						});
 			}
 		}
-		
-		function iniciaReserva(id){
-  	 		if(id){
-  	 			/* $("#loading-image").css('display', 'inline'); */
-  	 			var url = "<spring:url value="/reserva/iniciaReserva" />";
-      	 		 $.ajax({
-      	 			url:url,
-      	 			data: {id:id},
-    				type : "GET",
-      	 			success: function(data){
-	      	 		/* 	$("#loading-image").css('display', 'none'); */
-	      	 			if(data === 'true'){ 
-	      	 				$(":submit").attr("disabled", true);
-	      	 				$("#user-alert").show().html("<spring:message code='create.message.usuarioExistente.parte1'/><strong> " + username + " </strong><spring:message code='create.message.usuarioExistente.parte2'/>"  );
-	      	 			} else {
-		      	 		    $(":submit").removeAttr("disabled");
-	      	 				$("#user-alert").hide().html("");
-	      	 			}
-      	 	        	//alert("Data: " + data );
-      	 			} 
-      	 	    });
-  	 		}
-  	 	}
+
+		function iniciaReserva(id) {
+			if (id) {
+				/* $("#loading-image").css('display', 'inline'); */
+				var url = "<spring:url value="/reserva/iniciaReserva" />";
+				$
+						.ajax({
+							url : url,
+							data : {
+								id : id
+							},
+							type : "GET",
+							success : function(data) {
+								/* 	$("#loading-image").css('display', 'none'); */
+								if (data === 'true') {
+									$(":submit").attr("disabled", true);
+									$("#user-alert")
+											.show()
+											.html(
+													"<spring:message code='create.message.usuarioExistente.parte1'/><strong> "
+															+ username
+															+ " </strong><spring:message code='create.message.usuarioExistente.parte2'/>");
+								} else {
+									$(":submit").removeAttr("disabled");
+									$("#user-alert").hide().html("");
+								}
+								//alert("Data: " + data );
+							}
+						});
+			}
+		}
 	</script>
 
 </body>
