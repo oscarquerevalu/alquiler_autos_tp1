@@ -132,7 +132,7 @@
 					<div class="team-block">
 						<div class="team-img">
 							<img onclick="autoFindbyId(2);"
-								src="<spring:url value="/resources/css/images//toyota-hilux.jpg" />"
+								src="<spring:url value="/resources/css/images//toyota_hilux_1.JPG" />"
 								alt="Avatar" class="image">
 						</div>
 					</div>
@@ -150,7 +150,7 @@
 					<div class="team-block">
 						<div class="team-img">
 							<img onclick="autoFindbyId(4);"
-								src="<spring:url value="/resources/css/images//kia-rio-2.jpg" />"
+								src="<spring:url value="/resources/css/images//kia_rio_1.png" />"
 								alt="Avatar" class="image">
 						</div>
 					</div>
@@ -159,7 +159,7 @@
 					<div class="team-block">
 						<div class="team-img">
 							<img onclick="autoFindbyId(5);"
-								src="<spring:url value="/resources/css/images//mercedes-1.jpg" />"
+								src="<spring:url value="/resources/css/images//toyota_corolla_5_4.jpg" />"
 								alt="Avatar" class="image">
 						</div>
 					</div>
@@ -198,12 +198,12 @@
 				<div class="modal-body">
 
 					<div class="container">
-						<div class="row">
+						<div class="row" style= "display: flex; align-items: center;">
 							<div class="col-sm">
 								<!-- Imagenes de auto -->
 
-								<div id="carouselExampleIndicators" class="carousel slide"
-									data-ride="carousel">
+								<div id="carouselExampleIndicators" class="carousel slide
+								data-ride="carousel">
 									<ol class="carousel-indicators">
 										<li data-target="#carouselExampleIndicators" data-slide-to="0"
 											class="active"></li>
@@ -397,7 +397,7 @@
 															+ textDisponible);*/
 								}
 								//alert("Data: " + data );
-								$(".modal-title").text(data.nombre);
+								$(".modal-title").text(data.categoria+" "+data.nombre);
 								$(".col-sm2")
 										.html(
 												"<h6> <spring:message code='home.auto.categoria'/><small> "
@@ -455,15 +455,15 @@
 								$("btn-replace").html(textDisponible);
 								$("#imgOne").attr(
 										"src",
-										"https://casa.com/auto/auto_" + data.id
+										"http://www.dalvenithcaffo.com/imagenes/auto_" + data.id
 												+ "_01.jpg");
 								$("#imgTwo").attr(
 										"src",
-										"https://casa.com/auto/auto_" + data.id
+										"http://www.dalvenithcaffo.com/imagenes/auto_" + data.id
 												+ "_02.jpg");
 								$("#imgThree").attr(
 										"src",
-										"https://casa.com/auto/auto_" + data.id
+										"http://www.dalvenithcaffo.com/imagenes/auto_" + data.id
 												+ "_03.jpg");
 
 							},
