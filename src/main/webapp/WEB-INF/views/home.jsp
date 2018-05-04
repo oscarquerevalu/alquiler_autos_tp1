@@ -102,16 +102,21 @@
 			</c:if>
 		</div>
 	</div>
+	
+	<div class="container-fluid text-center">
+	
+			<!--  <div class="row">
+				<div
+					class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40 text-center">-->
+
+					<h2><spring:message code='home.title2' /></h2> 
+
+			<!--	</div>
+			</div>-->
+	</div>
+
 	<div class="content">
 		<div class="container">
-			<div class="row">
-				<div
-					class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mb40 text-center">
-
-					<spring:message code='home.title2' />
-
-				</div>
-			</div>
 
 			<div class="row">
 				<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
@@ -170,72 +175,26 @@
 					</div>
 				</div>
 
-				<%-- <div class="col-sm-3">
-					
-					<div class="form-actions" style="display: none;">
-						<c:url var="post_url" value="/reserva/inicia" />
-						<form:form id="form-create" action="${post_url}"
-							modelAttribute="auto" method="post" class="form-signin">
-						</form:form>
-						
-						<sec:authorize access="isAnonymous()" var="usuarioDeslogado" />
-						<c:choose>
-							<c:when test="${usuarioDeslogado}">
-								<c:url var="login_url" value="/login" />
-								<a href="${login_url}" class="btn btn-lg btn-primary btn-block"><spring:message
-										code="home.auto.login" /></a>
-							</c:when>
-							<c:otherwise>
-								<button type="submit" id="btn-reservar"
-									class="btn btn-lg btn-primary btn-block">
-									<spring:message code="home.auto.reservar" />
-								</button>
-							</c:otherwise>
-						</c:choose>
-					</div>
-				</div>--%>
-
 			</div>
-
 
 		</div>
 	</div>
 
 
-	<!-- Modal -->
-	<%--<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal">Cerrar</button>
-	        <btn-replace></btn-replace>
-	      </div>
-	    </div>
-	  </div>
-	</div>--%>
-
 	<!-- Large Modal -->
-	<div class="modal fade bd-example-modal-lg" id="exampleModalCenter"
-		tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-		aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+	<div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg" >
+		
 			<div class="modal-content">
+			
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalCenterTitle">Modal
-						title</h5>
+					<h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				
 				<div class="modal-body">
 
 					<div class="container">
@@ -441,57 +400,57 @@
 								$(".modal-title").text(data.nombre);
 								$(".col-sm2")
 										.html(
-												"<h3> <spring:message code='home.auto.categoria'/><small> "
+												"<h6> <spring:message code='home.auto.categoria'/><small> "
 														+ data.categoria
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.nombre'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.nombre'/><small> "
 														+ data.nombre
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.pasajeros'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.pasajeros'/><small> "
 														+ data.pasajeros
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.precio'/><small> $"
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.precio'/><small> $"
 														+ data.precio
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.tipo'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.tipo'/><small> "
 														+ data.tipo
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.transmision'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.transmision'/><small> "
 														+ data.transmision
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.aireAcondicionado'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.aireAcondicionado'/><small> "
 														+ data.aireAcondicionado
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.tipoAsiento'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.tipoAsiento'/><small> "
 														+ data.tipoAsiento
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.radio'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.radio'/><small> "
 														+ data.radio
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.puertoUsb'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.puertoUsb'/><small> "
 														+ data.puertoUsb
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.camaraRetro'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.camaraRetro'/><small> "
 														+ data.camaraRetro
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.interCol'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.interCol'/><small> "
 														+ data.interCol
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.cntrlVoz'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.cntrlVoz'/><small> "
 														+ data.cntrlVoz
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.bluetooth'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.bluetooth'/><small> "
 														+ data.bluetooth
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.encendidoAuto'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.encendidoAuto'/><small> "
 														+ data.encendidoAuto
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.sistNav'/><small> "
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.sistNav'/><small> "
 														+ data.sistNav
-														+ " </small></h3>"
-														+ "<h3> <spring:message code='home.auto.seguroVehiculo'/><small> $"
+														+ " </small></h6>"
+														+ "<h6> <spring:message code='home.auto.seguroVehiculo'/><small> $"
 														+ data.seguroVehiculo
-														+ " </small></h3>"
+														+ " </small></h6>"
 														+ "<a target='_blank' href='<c:url value='/seguro/download/internal' />'><spring:message code='home.auto.politicas'/></a><br>");
 								$("btn-replace").html(textDisponible);
 								$("#imgOne").attr(
