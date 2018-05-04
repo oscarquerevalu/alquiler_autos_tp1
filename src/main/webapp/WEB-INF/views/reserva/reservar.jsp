@@ -34,11 +34,11 @@
 						src="<spring:url value="/resources/images/brasil.jpeg" />"></a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="#">Home</a></li>
+					<li><c:url var="home_url" value="/" /><a href="${home_url}">Home</a></li>
 					<li class="active"><a href="#">Reserva</a></li>
 					<li><a href="#">Mis reservas</a></li>
-					<li><a href="#">Ofertas</a></li>
-					<li><a href="#">Cliente</a></li>
+<!-- 					<li><a href="#">Ofertas</a></li> -->
+					<li><c:url var="edit_url" value="/user/edit" /><a href="${edit_url}">Cliente</a></li>
 				</ul>
 				<div class="div-actions">
 					<c:url var="logout_url" value="/logout?logout" />

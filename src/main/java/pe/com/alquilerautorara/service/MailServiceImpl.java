@@ -64,31 +64,39 @@ public class MailServiceImpl implements MailService {
 					mimeMessage.setRecipient(Message.RecipientType.TO,
 							new InternetAddress(reserva.getUserInfo().getEmail()));
 					
-					html = messageSource.getMessage("message.mail.reserva",
-							new Object[] { 	reserva.getUserInfo().getName(),
-											reserva.getId(),
-											reserva.getAuto().getCategoria(),
-											reserva.getAuto().getNombre(),
-											reserva.getAuto().getPasajeros(),
-											reserva.getAuto().getTipo(),
-											reserva.getAuto().getTransmision(),
-											reserva.getFechaReservaIni(),
-											reserva.getFechaReservaFin(),
-											reserva.getPrecio()
-											}, locale);
+					if(reserva.getEstado().equals("CANCELADO")){
+						html = messageSource.getMessage("message.reserva.cancelar.body",
+								new Object[] { 	reserva.getUserInfo().getName(),
+												reserva.getId(),
+												reserva.getAuto().getCategoria(),
+												reserva.getAuto().getNombre(),
+												reserva.getAuto().getPasajeros(),
+												reserva.getAuto().getTipo(),
+												reserva.getAuto().getTransmision(),
+												reserva.getFechaReservaIni(),
+												reserva.getFechaReservaFin(),
+												reserva.getPrecio()
+												}, locale);
+						
+						mimeMessage.setSubject(messageSource.getMessage("message.reserva.cancelar",null, locale));
+					}
+					else {
+						html = messageSource.getMessage("message.mail.reserva",
+								new Object[] { 	reserva.getUserInfo().getName(),
+												reserva.getId(),
+												reserva.getAuto().getCategoria(),
+												reserva.getAuto().getNombre(),
+												reserva.getAuto().getPasajeros(),
+												reserva.getAuto().getTipo(),
+												reserva.getAuto().getTransmision(),
+												reserva.getFechaReservaIni(),
+												reserva.getFechaReservaFin(),
+												reserva.getPrecio()
+												}, locale);
+						
+						mimeMessage.setSubject(messageSource.getMessage("message.mail.reserva.title",null, locale));
+					}
 					
-//					html = "<h3>Dear " + reserva.getUserInfo().getName() +
-//							", thank you for placing reserve. Your reserve Number is " + reserva.getId() + ".</h3>"+
-//							"<h3><b>Detail Car</b></h3>"+
-//							"<h4> Category: <small> " + reserva.getAuto().getCategoria() + " </small></h4>\r\n" + 
-//							"<h4> Name: <small> " + reserva.getAuto().getNombre() + " </small></h4>\r\n" + 
-//							"<h4> Passengers: <small>" + reserva.getAuto().getPasajeros()+ " </small></h4>\r\n" + 
-//							"<h4> Type: <small> " + reserva.getAuto().getTipo() + " </small></h4>\r\n" + 
-//							"<h4> Transmission: <small> "+ reserva.getAuto().getTransmision()+ " </small></h4>"+
-//							"<h3><b>Detail Reserve</b></h3>"+
-//							"<h4>Date: <small>"+ reserva.getFechaReservaIni()+" to "+ reserva.getFechaReservaFin()+" </small></h4>\r\n" +
-//							"<h4>Price: <small>$"+ reserva.getPrecio()+"</small></h4>\r\n" ;
-					mimeMessage.setSubject(messageSource.getMessage("message.mail.reserva.title",null, locale));
 				}
 				if(obj instanceof UserInfo) {
 					UserInfo user = (UserInfo) obj;

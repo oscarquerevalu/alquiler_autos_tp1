@@ -35,11 +35,11 @@
 						src="<spring:url value="/resources/images/brasil.jpeg" />"></a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="#">Home</a></li>
+					<li><c:url var="home_url" value="/" /><a href="${home_url}">Home</a></li>
 					<li><a href="#">Reserva</a></li>
 					<li class="active"><a href="#">Mis reservas</a></li>
-					<li><a href="#">Ofertas</a></li>
-					<li><a href="#">Cliente</a></li>
+<!-- 					<li><a href="#">Ofertas</a></li> -->
+					<li><c:url var="edit_url" value="/user/edit" /><a href="${edit_url}">Cliente</a></li>
 				</ul>
 				<div class="div-actions">
 					<c:url var="logout_url" value="/logout?logout" />
@@ -84,11 +84,12 @@
 					<td>${reserva.auto.precio}</td>
 					<td>${reserva.auto.seguroVehiculo}</td>
 					<td>${reserva.precio}</td>
-					<td><c:url var="edit_url" value="/reserva/edit/${reserva.id}" />
-						<spring:message code="home.users.table.actions" var="editTitle" />
-						<a href="${edit_url}" class="btn btn-default btn-lg"
-						title="${editTitle}"> <span class="glyphicon glyphicon-edit"></span>
-					</a> <%-- 					 <sec:authorize access="hasRole('ROLE_ADMIN')" var="teste"> --%>
+					<td>
+<%-- 					<c:url var="edit_url" value="/reserva/edit/${reserva.id}" /> --%>
+<%-- 						<spring:message code="home.users.table.actions" var="editTitle" /> --%>
+<%-- 						<a href="${edit_url}" class="btn btn-default btn-lg" --%>
+<%-- 						title="${editTitle}"> <span class="glyphicon glyphicon-edit"></span> --%>
+<%-- 					</a> 					 <sec:authorize access="hasRole('ROLE_ADMIN')" var="teste"> --%>
 						<spring:message code="home.users.table.actions" var="removerTitle" />
 						<button
 							onclick="showModalRemoveUser('${reserva.id}','${reserva.auto.nombre}')"

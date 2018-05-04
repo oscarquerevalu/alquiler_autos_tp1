@@ -65,15 +65,15 @@
 
 			<div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 				<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-					<li class="nav-item active"><a class="nav-link" href="#">Home
+					<li class="nav-item active"><c:url var="home_url" value="/" /><a class="nav-link" href="${home_url}">Home
 							<span class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link disabled" href="#">Reserva</a>
 					</li>
-					<li class="active"><c:url var="listReserva_url" value="/reserva/list" />
+					<li class="nav-item"><c:url var="listReserva_url" value="/reserva/list" />
 						<a class="nav-link disabled" href="${listReserva_url}">Mis reservas</a></li>
-					<li class="nav-item"><a class="nav-link disabled" href="#">Ofertas</a>
-					</li>
+<!-- 					<li class="nav-item"><a class="nav-link disabled" href="#">Ofertas</a> -->
+<!-- 					</li> -->
 					<li class="nav-item"><c:url var="edit_url" value="/user/edit" />
 						<a class="nav-link disabled" href="${edit_url}">Cliente</a></li>
 				</ul>

@@ -144,10 +144,12 @@ public class ReservaController {
 	 */
 	@Secured("ROLE_USER")
 	@RequestMapping(value = "/remove/{id}", method = RequestMethod.GET)
-	public String remove(Principal principal, HttpServletRequest httpRequest, @PathVariable("id") long id,
+	public String remove(Locale locale, Principal principal, HttpServletRequest httpRequest, @PathVariable("id") long id,
 			Model model) {
 		Reserva reserva = reservaService.findById(id);
+		reserva.setEstado("CANCELADO");
 		reservaService.remover(id);
+		mailService.sendEmail(locale, reserva);
 		model.addAttribute("message", messageSource.getMessage("message.reserva.removed",
 				new Object[] { reserva.getFechaReservaIni() +" - "+  reserva.getFechaReservaFin()}, Locale.getDefault()));
 		return "redirect:/";

@@ -185,24 +185,23 @@
 
 				<div class="row">
 
-					<div class="col-xs-8">
-						<div class="checkbox icheck">
-							<label class="hide_ndv"> <input type="checkbox">I
-								agree to the <a href="#">terms</a>
-							</label>
-						</div>
-					</div>
+					<!-- 					<div class="col-xs-8"> -->
+					<!-- 						<div class="checkbox icheck"> -->
+					<!-- 							<label class="hide_ndv"> <input type="checkbox">I -->
+					<!-- 								agree to the <a href="#">terms</a> -->
+					<!-- 							</label> -->
+					<!-- 						</div> -->
+					<!-- 					</div> -->
 					<!-- /.col -->
 					<div class="col-xs-4">
 						<button type="submit" id="btn-salvar"
 							class="btn btn-primary btn-block btn-flat">
 							<spring:message code="create.input.cadastra" />
 						</button>
-						<sec:authorize access="isAnonymous()" var="usuarioDeslogado" />
+						<%-- 						<sec:authorize access="isAnonymous()" var="usuarioDeslogado" /> --%>
 					</div>
 					<!-- /.col -->
 				</div>
-
 
 
 				<!--<div class="form-actions">
@@ -224,16 +223,31 @@
 
 			</form:form>
 
-			<div class="social-auth-links text-center hide_ndv">
-				<p>- OR -</p>
-				<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i
-					class="fa fa-facebook"></i> Sign up using Facebook</a> <a href="#"
-					class="btn btn-block btn-social btn-google btn-flat"><i
-					class="fa fa-google-plus"></i> Sign up using Google+</a>
-			</div>
+			<!-- 			<div class="social-auth-links text-center hide_ndv"> -->
+			<!-- 				<p>- OR -</p> -->
+			<!-- 				<a href="#" class="btn btn-block btn-social btn-facebook btn-flat"><i -->
+			<!-- 					class="fa fa-facebook"></i> Sign up using Facebook</a> <a href="#" -->
+			<!-- 					class="btn btn-block btn-social btn-google btn-flat"><i -->
+			<!-- 					class="fa fa-google-plus"></i> Sign up using Google+</a> -->
+			<!-- 			</div> -->
 
-			<a href="${login_url}" class="text-center hide_ndv">I already
-				have a membership</a>
+			<%-- 			<a href="${login_url}" class="text-center hide_ndv">I already --%>
+			<!-- 				have a membership</a> -->
+			<div class="form-actions">
+				<sec:authorize access="isAnonymous()" var="usuarioDeslogado" />
+				<c:choose>
+					<c:when test="${usuarioDeslogado}">
+						<c:url var="login_url" value="/login" />
+						<a href="${login_url}" class="text-center"><spring:message
+								code="login.title" /></a>
+					</c:when>
+					<c:otherwise>
+						<c:url var="home_url" value="/" />
+						<a href="${home_url}" class="text-center"><spring:message
+								code="create.input.voltar" /></a>
+					</c:otherwise>
+				</c:choose>
+			</div>
 
 		</div>
 
