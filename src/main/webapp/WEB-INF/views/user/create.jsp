@@ -152,6 +152,8 @@
 				<div class="form-group has-feedback">
 					<div id="password-alert" style="display: none;"
 						class="alert alert-warning"></div>
+					<div id="password-length-alert" style="display: none;"
+						class="alert alert-warning"></div>
 
 					<spring:message code="create.input.confirmpassword"
 						var="confirmPasswordLabel" />
@@ -296,21 +298,40 @@
 			function checkPasswords() {
 				var password = $("#password").val();
 				var confirmPassword = $("#confirm-password").val();
-				if (password && confirmPassword && password == confirmPassword) {
-					$("#password-alert").hide().html("");
-					return true;
-				} else if (password && confirmPassword
-						&& password != confirmPassword) {
-					$("#password-alert")
+
+				if(password.length < 8){
+					$("#password-length-alert")
+					.show()
+					.html(
+							"<spring:message code='create.message.passminlength'/>");
+					return false;
+				} else if (password.length > 15) {
+					$("#password-length-alert")
 							.show()
 							.html(
-									"<spring:message code='create.message.senhasIguais'/>");
+									"<spring:message code='create.message.passmaxlength'/>");
 					return false;
-				} else {
-					$("#password-alert").hide().html("");
-					return false;
+				}else {
+					$("#password-length-alert").hide().html("");
+					
+					if (password && confirmPassword && password == confirmPassword) {
+						$("#password-alert").hide().html("");
+						return true;
+					} else if (password && confirmPassword
+							&& password != confirmPassword) {
+						$("#password-alert")
+								.show()
+								.html(
+										"<spring:message code='create.message.senhasIguais'/>");
+						return false;
+					} else {
+						$("#password-alert").hide().html("");
+						return false;
+
+					}
 
 				}
+				
 			}
 
 			function checkUsernameExist(username) {

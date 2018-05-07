@@ -69,7 +69,7 @@ public class UserInfoController {
 		userInfoService.save(userInfo);
 		model.addAttribute("message", messageSource.getMessage("message.user.save", null, Locale.getDefault()));
 		if(!newUser)mailService.sendEmail(locale,userInfo);
-		return "redirect:/user/create";
+		return "redirect:/";
 
 	}
 

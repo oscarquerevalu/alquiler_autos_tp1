@@ -48,9 +48,11 @@ public class UserInfoService implements IUserInfoService {
 		if(list.size()>0) {
 			UserInfo result = (UserInfo) list.get(0);
 			if (result == null) return null;
+			System.out.println("primer usuario");
 			return result;
 		}
 		else {
+			System.out.println("segundo user");
 			return dao.findByUsername(username);
 		}
 //		return null;

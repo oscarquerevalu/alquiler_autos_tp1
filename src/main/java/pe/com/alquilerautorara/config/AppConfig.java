@@ -137,6 +137,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_USERNAME));
 		jpaProterties.put("hibernate.connection.password",
 				environment.getRequiredProperty(PROPERTY_NAME_DATABASE_PASSWORD));
+		
+//		jpaProterties.put("hibernate.cache.use_second_level_cache",false);
+//		jpaProterties.put("hibernate.cache.use_query_cache",false);
+		
 
 		factory.setJpaProperties(jpaProterties);
 		factory.afterPropertiesSet();
