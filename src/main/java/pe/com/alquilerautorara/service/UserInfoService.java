@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceContextType;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -41,20 +42,26 @@ public class UserInfoService implements IUserInfoService {
 
 	@Override
 	public UserInfo findByUsername(String username) {
-		List list =entityManager
-				.createQuery("select u from UserInfo u where u.username = :username")
-				.setParameter("username", username).getResultList();
-//				List list = query.list();
-		if(list.size()>0) {
-			UserInfo result = (UserInfo) list.get(0);
-			if (result == null) return null;
-			System.out.println("primer usuario");
-			return result;
-		}
-		else {
-			System.out.println("segundo user");
-			return dao.findByUsername(username);
-		}
+//		entityManager.getEntityManagerFactory().getCache().evictAll();
+////		entityManager.flush();
+////		entityManager.clear();
+//		List list =entityManager
+//				.createQuery("select u from UserInfo u where u.username = :username")
+////				.setHint("org.hibernate.cacheMode", "IGNORE")
+//				.setParameter("username", username).getResultList();
+////				List list = query.list();
+//		if(list.size()>0) {
+//			UserInfo result = (UserInfo) list.get(0);
+//			if (result == null) return null;
+//			System.out.println("primer usuario");
+//			return result;
+//		}
+//		else {
+//			System.out.println("segundo user");
+			UserInfo user =dao.findByUsername(username);
+//			entityManager.refresh(user);
+			return user;
+//		}
 //		return null;
 	}
 	

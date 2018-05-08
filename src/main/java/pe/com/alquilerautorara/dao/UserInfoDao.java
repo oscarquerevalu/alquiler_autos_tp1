@@ -1,7 +1,7 @@
 package pe.com.alquilerautorara.dao;
 
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import pe.com.alquilerautorara.model.UserInfo;
 
@@ -10,7 +10,7 @@ import pe.com.alquilerautorara.model.UserInfo;
  * @author hlandim
  *
  */
-@Repository
+@Transactional
 public interface UserInfoDao extends CrudRepository<UserInfo, Long>{
 
 	public UserInfo findByUsername(String username);
